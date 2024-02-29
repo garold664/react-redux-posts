@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { addPost } from '../store/posts/postsSlice';
+import { addPost } from '../../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
+
+import styles from './AddPostForm.module.scss';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,6 @@ const AddPostForm = () => {
   const onSavePost = (event) => {
     event.preventDefault();
     if (title && content) {
-      // dispatch(addPost({ id: nanoid(), title, content }));
-      // ! Preparing Action Payloads: https://redux.js.org/tutorials/essentials/part-4-using-data#preparing-action-payloads
-      //! Now our component doesn't have to worry about what the payload object looks like:
       dispatch(addPost(title, content, userId));
       setTitle('');
       setContent('');
@@ -35,9 +33,9 @@ const AddPostForm = () => {
   ));
 
   return (
-    <section>
-      <h2>Add a New Post</h2>
-      <form onSubmit={onSavePost}>
+    <section className={styles.addPost}>
+      <h2 className={styles.title}>Add a New Post</h2>
+      <form className={styles.form} onSubmit={onSavePost}>
         <label htmlFor="postTitle">Post Title: </label>
         <input
           type="text"
@@ -48,7 +46,7 @@ const AddPostForm = () => {
         />
         <label htmlFor="postAuthor">Author: </label>
         <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-          <option value=""></option>
+          {/* <option value=""></option> */}
           {userOptions}
         </select>
         <label htmlFor="postContent">Post Content: </label>

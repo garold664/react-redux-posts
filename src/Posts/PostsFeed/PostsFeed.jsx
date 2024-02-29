@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
-import AddPostForm from './AddPostForm';
+import AddPostForm from '../AddPostForm/AddPostForm';
 import { Link } from 'react-router-dom';
-import PostAuthor from './PostAuthor';
-import TimeAgo from './TimeAgo';
-import ReactionButtons from './ReactionButtons';
+import PostAuthor from '../PostAuthor';
+import TimeAgo from '../TimeAgo';
+import ReactionButtons from '../ReactionButtons';
 
+import styles from './PostsFeed.module.scss';
 const PostsFeed = () => {
   const posts = useSelector((state) => state.posts);
   // console.log(posts);
@@ -34,10 +35,10 @@ const PostsFeed = () => {
     </>
   );
   return (
-    <>
-      <h1>PostsFeed</h1>
+    <section className="container">
+      <h1 className={styles.title}>All Posts</h1>
       {renderedPosts}
-    </>
+    </section>
   );
 };
 

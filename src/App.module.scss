@@ -1,3 +1,5 @@
+@import 'styles/variables';
+
 button {
   font-size: 25px;
 }
@@ -9,14 +11,14 @@ button {
   left: 0;
   width: 100%;
   padding: 25px;
-  background-color: #bbdef0;
+  background-color: $color-secondary;
   // background-color: #fff;
   // border-bottom: 3px solid black;
   box-shadow: 0 5px 5px gray;
 }
 
 .link {
-  background-color: #2ee3d4;
+  background-color: $color-primary;
   padding: 5px;
   border-radius: 5px;
   color: #000000;
