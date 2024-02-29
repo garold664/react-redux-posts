@@ -1,6 +1,6 @@
 import { BrowserRouter, Link, NavLink, Route, Routes } from 'react-router-dom';
 
-// import './App.scss';
+import './App.scss';
 import styles from './App.module.scss';
 import Posts from './Posts/PostsFeed';
 import { SinglePostPage } from './Posts/SinglePostPage';
@@ -10,8 +10,15 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <nav>
-          <NavLink to="/posts">Posts</NavLink>
+        <nav className={styles.nav}>
+          <div className="container">
+            <NavLink className={styles.link} to="/">
+              Home
+            </NavLink>
+            <NavLink className={styles.link} to="/posts">
+              Posts
+            </NavLink>
+          </div>
         </nav>
         <Routes>
           <Route path="/posts" element={<Posts />} />
