@@ -25,6 +25,7 @@
     border-radius: 10px;
     border: 2px solid black;
     outline: none;
+    transition: box-shadow 0.25s;
 
     &:focus {
       box-shadow: 0 0 1px 2px $color-primary;

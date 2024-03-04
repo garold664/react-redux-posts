@@ -6,7 +6,8 @@ const initialState = [
   {
     id: '1',
     title: 'First Post!',
-    content: 'This is my first post',
+    content:
+      'This is my first post. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor?',
     userId: '0',
     date: sub(new Date(), { hours: 3, minutes: 10 }).toISOString(),
     reactions: {
@@ -21,7 +22,8 @@ const initialState = [
   {
     id: '2',
     title: 'Second Post!',
-    content: 'This is my second post',
+    content:
+      'This is my second post. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor?',
     userId: '0',
     date: sub(new Date(), { minutes: 5 }).toISOString(),
     reactions: {

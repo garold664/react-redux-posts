@@ -1,6 +1,8 @@
 import React from 'react';
-import { addReaction } from '../store/posts/postsSlice';
+import { addReaction } from '../../store/posts/postsSlice';
 import { useDispatch } from 'react-redux';
+
+import styles from './ReactionButtons.module.scss';
 
 const reactionEmoji = {
   thumbsUp: '👍',
@@ -18,7 +20,7 @@ const ReactionButtons = ({ post }) => {
       <button
         key={name}
         type="button"
-        className="muted-button reaction-button"
+        className={styles.button}
         onClick={() =>
           dispatch(addReaction({ postId: post.id, reaction: name }))
         }
@@ -27,7 +29,7 @@ const ReactionButtons = ({ post }) => {
       </button>
     );
   });
-  return <div>{reactionButtons}</div>;
+  return <div className={styles.buttons}>{reactionButtons}</div>;
 };
 
 export default ReactionButtons;

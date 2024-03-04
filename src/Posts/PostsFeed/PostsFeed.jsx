@@ -3,7 +3,7 @@ import AddPostForm from '../AddPostForm/AddPostForm';
 import { Link } from 'react-router-dom';
 import PostAuthor from '../PostAuthor';
 import TimeAgo from '../TimeAgo';
-import ReactionButtons from '../ReactionButtons';
+import ReactionButtons from '../ReactionButtons/ReactionButtons';
 
 import styles from './PostsFeed.module.scss';
 const PostsFeed = () => {
@@ -12,15 +12,14 @@ const PostsFeed = () => {
 
   const orderedPosts = posts
     .slice()
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
     .sort((a, b) => b.date.localeCompare(a.date));
 
   const renderedPosts = (
     <>
       <AddPostForm />
-      <ul>
+      <ul className={styles.posts}>
         {orderedPosts.map((post) => (
-          <li key={post.id}>
+          <li key={post.id} className={styles.post}>
             <h2>{post.title}</h2>
             <p>{post.content}</p>
             <div>
