@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import PostAuthor from './PostAuthor';
+import PostAuthor from './PostAuthor/PostAuthor';
 import TimeAgo from './TimeAgo';
 
 export const SinglePostPage = () => {
@@ -10,7 +10,7 @@ export const SinglePostPage = () => {
     state.posts.find((post) => post.id === postId)
   );
 
-  console.log(post);
+  // console.log(post);
 
   if (!post) {
     return (
@@ -21,7 +21,7 @@ export const SinglePostPage = () => {
   }
   return (
     <section>
-      <article>
+      <article className="container">
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         <div>

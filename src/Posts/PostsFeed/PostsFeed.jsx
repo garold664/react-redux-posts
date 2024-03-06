@@ -1,14 +1,13 @@
 import { useSelector } from 'react-redux';
 import AddPostForm from '../AddPostForm/AddPostForm';
 import { Link } from 'react-router-dom';
-import PostAuthor from '../PostAuthor';
+import PostAuthor from '../PostAuthor/PostAuthor';
 import TimeAgo from '../TimeAgo';
 import ReactionButtons from '../ReactionButtons/ReactionButtons';
 
 import styles from './PostsFeed.module.scss';
 const PostsFeed = () => {
   const posts = useSelector((state) => state.posts);
-  // console.log(posts);
 
   const orderedPosts = posts
     .slice()
@@ -27,7 +26,9 @@ const PostsFeed = () => {
               <TimeAgo timestamp={post.date} />
             </div>
             <ReactionButtons post={post} />
-            <Link to={`/posts/${post.id}`}>link</Link>
+            <Link className={styles.link} to={`/posts/${post.id}`}>
+              read the post
+            </Link>
           </li>
         ))}
       </ul>
