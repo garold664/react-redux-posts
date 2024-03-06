@@ -3,12 +3,11 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import PostAuthor from './PostAuthor/PostAuthor';
 import TimeAgo from './TimeAgo';
+import { selectPostById } from '../store/posts/postsSlice';
 
 export const SinglePostPage = () => {
   let { postId } = useParams();
-  const post = useSelector((state) =>
-    state.posts.find((post) => post.id === postId)
-  );
+  const post = useSelector((state) => selectPostById(state, postId));
 
   // console.log(post);
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { updatePost } from '../store/posts/postsSlice';
+import { selectPostById, updatePost } from '../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useParams, useNavigate } from 'react-router-dom';
@@ -9,9 +9,7 @@ const EditPostForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const post = useSelector((state) =>
-    state.posts.find((post) => post.id === postId)
-  );
+  const post = useSelector((state) => selectPostById(state, postId));
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);

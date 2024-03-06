@@ -5,9 +5,11 @@ import PostAuthor from '../PostAuthor/PostAuthor';
 import TimeAgo from '../TimeAgo';
 import ReactionButtons from '../ReactionButtons/ReactionButtons';
 
+import { selectAllPosts } from '../../store/posts/postsSlice';
+
 import styles from './PostsFeed.module.scss';
 const PostsFeed = () => {
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector(selectAllPosts);
 
   const orderedPosts = posts
     .slice()
