@@ -1,45 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { nanoid } from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 
 const initialState = {
-  posts: [
-    {
-      id: '1',
-      title: 'First Post!',
-      content:
-        'This is my first post. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor?',
-      userId: '0',
-      date: sub(new Date(), { hours: 3, minutes: 10 }).toISOString(),
-      reactions: {
-        thumbsUp: 3,
-        hooray: 0,
-        heart: 0,
-        rocket: 0,
-        eyes: 0,
-        cat: 0,
-      },
-    },
-    {
-      id: '2',
-      title: 'Second Post!',
-      content:
-        'This is my second post. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi quas, maiores saepe culpa modi deleniti fugit! Ad autem ipsa sed molestiae eveniet optio ea corrupti, unde ducimus, aliquid eum dolor?',
-      userId: '0',
-      date: sub(new Date(), { minutes: 5 }).toISOString(),
-      reactions: {
-        thumbsUp: 0,
-        hooray: 0,
-        heart: 0,
-        rocket: 0,
-        eyes: 2,
-        cat: 0,
-      },
-    },
-  ],
+  posts: [],
   status: 'idle',
   error: null,
 };
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  const response = await fetch(
+    'https://test-20e2d-default-rtdb.firebaseio.com/posts.json'
+  );
+  const data = await response.json();
+  return data;
+});
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -80,6 +55,21 @@ const postsSlice = createSlice({
         existingPost.reactions[reaction]++;
       }
     },
+  },
+
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.posts = state.posts.concat(action.payload);
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 

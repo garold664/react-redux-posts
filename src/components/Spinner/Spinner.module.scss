@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+.ldsSpinner {
+  color: $color-primary;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+
+  & div {
+    transform-origin: 40px 40px;
+    animation: lds-spinner 1.2s linear infinite;
+  }
+  & div:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 37px;
+    width: 6px;
+    height: 18px;
+    border-radius: 20%;
+    background: $color-primary;
+  }
+
+  @for $i from 1 through 12 {
+    & div:nth-child(#{$i}) {
+      transform: rotate(0deg + $i * 30deg);
+      animation-delay: -1.1s + $i * 0.1s;
+    }
+  }
+}
+
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
