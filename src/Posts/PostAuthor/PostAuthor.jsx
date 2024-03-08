@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import styles from './PostAuthor.module.scss';
 
 const PostAuthor = ({ userId }) => {
-  // console.log(userId);
-  const author = useSelector((state) =>
-    state.users.find((user) => user.id === userId)
-  );
+  const author = useSelector((state) => {
+    return state.users.find((user) => user.id == userId);
+  });
+  console.log(author);
 
   return (
     <span>

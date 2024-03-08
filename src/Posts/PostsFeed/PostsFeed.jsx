@@ -50,6 +50,8 @@ const PostsFeed = () => {
         </Link>
       </li>
     ));
+  } else if (postsStatus === 'failed') {
+    content = <li>{posts.error}</li>;
   }
 
   const renderedPosts = (
