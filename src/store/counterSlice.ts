@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+// type InitialState = {
+//   value: number;
+// };
 const initialState = { value: 0 };
 
-export const selectCount = (state) => state.counter.value;
+// export const selectCount = (state: InitialState) => state.counter.value;
 
 export const counterSlice = createSlice({
   name: 'counter',

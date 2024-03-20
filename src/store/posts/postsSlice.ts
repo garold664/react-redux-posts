@@ -1,8 +1,35 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { nanoid } from '@reduxjs/toolkit';
-import { sub } from 'date-fns';
+import { RootState } from '../store';
+// import { sub } from 'date-fns';
 
-const initialState = {
+type Reaction = {
+  cat: number;
+  thumbsUp: number;
+  hooray: number;
+  heart: number;
+  rocket: number;
+  eyes: number;
+};
+// type Reaction = {
+//   [key: 'cat' | 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes']: number;
+// };
+type Post = {
+  id: string;
+  date: string;
+  title: string;
+  content: string;
+  userId: string;
+  reactions: Reaction;
+};
+
+type InitialState = {
+  posts: Post[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+};
+
+const initialState: InitialState = {
   posts: [],
   status: 'idle',
   error: null,
@@ -25,14 +52,19 @@ const postsSlice = createSlice({
         state.posts.push(action.payload);
       },
 
-      prepare(title, content, userId, reactions) {
+      prepare(
+        title: string,
+        content: string,
+        userId: string,
+        reactions: Reaction
+      ) {
         return {
           payload: {
             id: nanoid(),
             date: new Date().toISOString(),
             title,
             content,
-            user: userId,
+            userId: userId,
             reactions,
           },
         };
@@ -49,8 +81,16 @@ const postsSlice = createSlice({
       }
     },
     addReaction(state, action) {
-      const { postId, reaction } = action.payload;
-      const existingPost = state.posts.find((post) => post.id === postId);
+      const {
+        postId,
+        reaction,
+      }: {
+        postId: string;
+        reaction: 'cat' | 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes';
+      } = action.payload;
+      const existingPost = state.posts.find(
+        (post) => post.id === postId
+      ) as Post;
       if (existingPost) {
         existingPost.reactions[reaction]++;
       }
@@ -68,7 +108,9 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.error.message
+          ? action.error.message
+          : 'Something went wrong';
       });
   },
 });
@@ -77,7 +119,7 @@ export const { addPost, updatePost, addReaction } = postsSlice.actions;
 
 export default postsSlice.reducer;
 
-export const selectAllPosts = (state) => state.posts.posts;
+export const selectAllPosts = (state: RootState) => state.posts.posts;
 
-export const selectPostById = (state, postId) =>
-  state.posts.posts.find((post) => post.id === postId);
+export const selectPostById = (state: RootState, postId: string) =>
+  state.posts.posts.find((post: Post) => post.id === postId);

@@ -10,16 +10,20 @@ import { selectAllPosts, fetchPosts } from '../../store/posts/postsSlice';
 import styles from './PostsFeed.module.scss';
 import { useEffect } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
+import { RootState } from '../../store/store';
+
 const PostsFeed = () => {
   const posts = useSelector(selectAllPosts);
+  console.log(posts);
 
-  const postsStatus = useSelector((state) => state.posts.status);
+  const postsStatus = useSelector((state: RootState) => state.posts.status);
+  const error = useSelector((state: RootState) => state.posts.error);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (postsStatus === 'idle') {
-      dispatch(fetchPosts());
+      dispatch(fetchPosts() as any);
     }
   }, [postsStatus, dispatch]);
 
@@ -51,7 +55,7 @@ const PostsFeed = () => {
       </li>
     ));
   } else if (postsStatus === 'failed') {
-    content = <li>{posts.error}</li>;
+    content = <li>{error}</li>;
   }
 
   const renderedPosts = (
