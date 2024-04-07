@@ -3,22 +3,26 @@ import { addPost } from '../../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './AddPostForm.module.scss';
+import { RootState } from '../../store/store';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state.users);
+  const users = useSelector((state: RootState) => state.users);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
-  const onTitleChange = (event) => setTitle(event.target.value);
-  const onContentChange = (event) => setContent(event.target.value);
-  const onAuthorChanged = (event) => setUserId(event.target.value);
-  const onSavePost = (event) => {
+  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(event.target.value);
+  const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setContent(event.target.value);
+  const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
+    setUserId(event.target.value);
+  const onSavePost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content) {
-      dispatch(addPost(title, content, userId));
+      dispatch(addPost({ title, content, userId }));
       setTitle('');
       setContent('');
     }
@@ -51,7 +55,6 @@ const AddPostForm = () => {
         </select>
         <label htmlFor="postContent">Post Content: </label>
         <textarea
-          type="text"
           id="postContent"
           name="postContent"
           value={content}

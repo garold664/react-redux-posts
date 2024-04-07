@@ -14,7 +14,7 @@ import { RootState } from '../../store/store';
 
 const PostsFeed = () => {
   const posts = useSelector(selectAllPosts);
-  console.log(posts);
+  // console.log(posts);
 
   const postsStatus = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);

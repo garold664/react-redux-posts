@@ -1,5 +1,5 @@
 import React from 'react';
-import { addReaction } from '../../store/posts/postsSlice';
+import { Post, addReaction } from '../../store/posts/postsSlice';
 import { useDispatch } from 'react-redux';
 
 import styles from './ReactionButtons.module.scss';
@@ -13,7 +13,7 @@ const reactionEmoji = {
   cat: '😻',
 };
 
-const ReactionButtons = ({ post }) => {
+const ReactionButtons = ({ post }: { post: Post }) => {
   const dispatch = useDispatch();
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
     return (
@@ -25,7 +25,7 @@ const ReactionButtons = ({ post }) => {
           dispatch(addReaction({ postId: post.id, reaction: name }))
         }
       >
-        {emoji} {post.reactions[name]}
+        {emoji} {post.reactions[name as keyof typeof post.reactions]}
       </button>
     );
   });

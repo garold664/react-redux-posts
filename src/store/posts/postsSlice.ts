@@ -14,7 +14,15 @@ type Reaction = {
 // type Reaction = {
 //   [key: 'cat' | 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes']: number;
 // };
-type Post = {
+
+// export type ReactionKey =
+//   | 'cat'
+//   | 'thumbsUp'
+//   | 'hooray'
+//   | 'heart'
+//   | 'rocket'
+//   | 'eyes';
+export type Post = {
   id: string;
   date: string;
   title: string;
