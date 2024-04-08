@@ -130,4 +130,7 @@ export default postsSlice.reducer;
 export const selectAllPosts = (state: RootState) => state.posts.posts;
 
 export const selectPostById = (state: RootState, postId: string) =>
-  state.posts.posts.find((post: Post) => post.id === postId);
+  state.posts.posts.find((post: Post) => {
+    console.log(post.id, postId);
+    return post.id.toString() === postId;
+  });

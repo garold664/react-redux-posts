@@ -7,7 +7,7 @@ const PostAuthor = ({ userId }: { userId: string }) => {
   const author = useSelector((state: RootState) => {
     return state.users.find((user) => user.id == userId);
   });
-  console.log(author);
+  // console.log(author);
 
   return (
     <span>

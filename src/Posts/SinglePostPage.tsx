@@ -12,7 +12,7 @@ export const SinglePostPage = () => {
     selectPostById(state, postId!)
   );
 
-  // console.log(post);
+  console.log(post);
 
   if (!post) {
     return (
