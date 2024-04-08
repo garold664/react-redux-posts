@@ -1,13 +1,16 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import PostAuthor from './PostAuthor/PostAuthor';
 import TimeAgo from './TimeAgo';
 import { selectPostById } from '../store/posts/postsSlice';
 
+import type { RootState } from '../store/store';
+
 export const SinglePostPage = () => {
-  let { postId } = useParams();
-  const post = useSelector((state) => selectPostById(state, postId));
+  const { postId } = useParams();
+  const post = useSelector((state: RootState) =>
+    selectPostById(state, postId!)
+  );
 
   // console.log(post);
 

@@ -3,20 +3,33 @@ import { selectPostById, updatePost } from '../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useParams, useNavigate } from 'react-router-dom';
+import { RootState } from '../store/store';
 
 const EditPostForm = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const post = useSelector((state) => selectPostById(state, postId));
+  const post = useSelector((state: RootState) =>
+    selectPostById(state, postId!)
+  );
 
-  const [title, setTitle] = useState(post.title);
-  const [content, setContent] = useState(post.content);
+  const [title, setTitle] = useState(post!.title);
+  const [content, setContent] = useState(post!.content);
 
-  const onTitleChange = (event) => setTitle(event.target.value);
-  const onContentChange = (event) => setContent(event.target.value);
-  const onSavePost = (event) => {
+  if (!post) {
+    return (
+      <section>
+        <h2>Post not found!</h2>
+      </section>
+    );
+  }
+
+  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(event.target.value);
+  const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setContent(event.target.value);
+  const onSavePost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content) {
       dispatch(updatePost({ id: postId, title, content }));
@@ -37,7 +50,6 @@ const EditPostForm = () => {
         />
         <label htmlFor="postContent">Post Content: </label>
         <textarea
-          type="text"
           id="postContent"
           name="postContent"
           value={content}

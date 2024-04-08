@@ -1,4 +1,3 @@
-import React from 'react';
 import { Post, addReaction } from '../../store/posts/postsSlice';
 import { useDispatch } from 'react-redux';
 
