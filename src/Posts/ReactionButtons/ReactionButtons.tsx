@@ -15,6 +15,7 @@ const reactionEmoji = {
 const ReactionButtons = ({ post }: { post: Post }) => {
   const dispatch = useDispatch();
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
+    console.log(post);
     return (
       <button
         key={name}
@@ -28,6 +29,7 @@ const ReactionButtons = ({ post }: { post: Post }) => {
       </button>
     );
   });
+  console.log(reactionButtons);
   return <div className={styles.buttons}>{reactionButtons}</div>;
 };
 

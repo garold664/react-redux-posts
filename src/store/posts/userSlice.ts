@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = [
-  { id: '0', name: 'John Wick' },
-  { id: '1', name: 'Tomas Anderson' },
-  { id: '2', name: 'John Constantin' },
+  // { id: '2648376', name: 'John Wick' },
+  // { id: '1234834', name: 'Tomas Anderson' },
+  // { id: '9762131', name: 'John Constantin' },
+  // { id: '6187364', name: 'Jack Traven' },
 ];
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {

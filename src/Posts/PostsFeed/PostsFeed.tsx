@@ -14,7 +14,6 @@ import { RootState } from '../../store/store';
 
 const PostsFeed = () => {
   const posts = useSelector(selectAllPosts);
-  // console.log(posts);
 
   const postsStatus = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);
@@ -27,6 +26,9 @@ const PostsFeed = () => {
     }
   }, [postsStatus, dispatch]);
 
+  if (!posts.length) {
+    return;
+  }
   const orderedPosts = posts
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -48,7 +50,7 @@ const PostsFeed = () => {
           <PostAuthor userId={post.userId} />
           <TimeAgo timestamp={post.date} />
         </div>
-        <ReactionButtons post={post} />
+        {/* <ReactionButtons post={post} /> */}
         <Link className={styles.link} to={`/posts/${post.id}`}>
           read the post
         </Link>

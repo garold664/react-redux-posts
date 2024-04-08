@@ -51,34 +51,40 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   return data;
 });
 
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  async (initialPost: {}) => {
+    const post = {
+      ...initialPost,
+      date: new Date().toISOString(),
+      reactions: {
+        cat: 0,
+        thumbsUp: 0,
+        hooray: 0,
+        heart: 0,
+        rocket: 0,
+        eyes: 0,
+      },
+    };
+    const response = await fetch(
+      'https://test-20e2d-default-rtdb.firebaseio.com/posts.json',
+      {
+        method: 'POST',
+        body: JSON.stringify(post),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    await response.json();
+    return post;
+  }
+);
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    addPost: {
-      reducer(state, action) {
-        state.posts.push(action.payload);
-      },
-
-      prepare(
-        title: string,
-        content: string,
-        userId: string,
-        reactions: Reaction
-      ) {
-        return {
-          payload: {
-            id: nanoid(),
-            date: new Date().toISOString(),
-            title,
-            content,
-            userId: userId,
-            reactions,
-          },
-        };
-      },
-    },
-
     updatePost: (state, action) => {
       const { id, title, content } = action.payload;
       const existingPost = state.posts.find((post) => post.id === id);
@@ -112,18 +118,27 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.posts = state.posts.concat(action.payload);
+        const posts: Post[] = [];
+        Object.entries(action.payload).forEach(([key, value]) => {
+          const post = value as Post;
+          post.id = key;
+          posts.push(post);
+        });
+        state.posts = state.posts.concat(posts);
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message
           ? action.error.message
           : 'Something went wrong';
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload as Post);
       });
   },
 });
 
-export const { addPost, updatePost, addReaction } = postsSlice.actions;
+export const { updatePost, addReaction } = postsSlice.actions;
 
 export default postsSlice.reducer;
 
@@ -131,6 +146,5 @@ export const selectAllPosts = (state: RootState) => state.posts.posts;
 
 export const selectPostById = (state: RootState, postId: string) =>
   state.posts.posts.find((post: Post) => {
-    console.log(post.id, postId);
     return post.id.toString() === postId;
   });

@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
-import { addPost } from '../../store/posts/postsSlice';
+import { addNewPost } from '../../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './AddPostForm.module.scss';
 import { RootState } from '../../store/store';
+import { AnyAction } from '@reduxjs/toolkit';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
 
   const users = useSelector((state: RootState) => state.users);
-
+  console.log(users);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(users[0].id);
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
   const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setContent(event.target.value);
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
-  const onSavePost = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content) {
-      dispatch(addPost({ title, content, userId }));
+      await dispatch(addNewPost({ title, content, userId })).unwrap();
       setTitle('');
       setContent('');
     }
   };
 
   const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
+  console.log(userId);
+  console.log(Boolean(userId));
 
   const userOptions = users.map((user) => (
     <option key={user.id} value={user.id}>
