@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './AddPostForm.module.scss';
 import { RootState } from '../../store/store';
-import { AnyAction } from '@reduxjs/toolkit';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
@@ -23,15 +22,13 @@ const AddPostForm = () => {
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content) {
-      await dispatch(addNewPost({ title, content, userId })).unwrap();
+      await dispatch(addNewPost({ title, content, userId }) as any).unwrap();
       setTitle('');
       setContent('');
     }
   };
 
   const canSave = Boolean(title) && Boolean(content) && Boolean(userId);
-  console.log(userId);
-  console.log(Boolean(userId));
 
   const userOptions = users.map((user) => (
     <option key={user.id} value={user.id}>

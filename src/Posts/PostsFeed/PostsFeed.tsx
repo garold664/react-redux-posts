@@ -11,6 +11,7 @@ import styles from './PostsFeed.module.scss';
 import { useEffect } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
+import { AnyAction } from '@reduxjs/toolkit';
 
 const PostsFeed = () => {
   const posts = useSelector(selectAllPosts);
@@ -50,7 +51,7 @@ const PostsFeed = () => {
           <PostAuthor userId={post.userId} />
           <TimeAgo timestamp={post.date} />
         </div>
-        {/* <ReactionButtons post={post} /> */}
+        <ReactionButtons post={post} />
         <Link className={styles.link} to={`/posts/${post.id}`}>
           read the post
         </Link>

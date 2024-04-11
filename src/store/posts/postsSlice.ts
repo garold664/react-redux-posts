@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { nanoid } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-// import { sub } from 'date-fns';
 
 type Reaction = {
   cat: number;
@@ -11,17 +9,7 @@ type Reaction = {
   rocket: number;
   eyes: number;
 };
-// type Reaction = {
-//   [key: 'cat' | 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes']: number;
-// };
 
-// export type ReactionKey =
-//   | 'cat'
-//   | 'thumbsUp'
-//   | 'hooray'
-//   | 'heart'
-//   | 'rocket'
-//   | 'eyes';
 export type Post = {
   id: string;
   date: string;
@@ -53,7 +41,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
-  async (initialPost: {}) => {
+  async (initialPost: { title: string; content: string; userId: string }) => {
     const post = {
       ...initialPost,
       date: new Date().toISOString(),
