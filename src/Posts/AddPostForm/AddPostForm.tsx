@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './AddPostForm.module.scss';
 import { RootState } from '../../store/store';
+import ErrorMsg from '../../components/ErrorMsg/ErrorMsg';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
 
   const users = useSelector((state: RootState) => state.users);
-  console.log(users);
   const [title, setTitle] = useState('');
+  const [error, setError] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState(users[0].id);
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -19,12 +20,24 @@ const AddPostForm = () => {
     setContent(event.target.value);
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
+
+  const closeErrorMsg = () => {
+    setError('');
+  };
+
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content) {
-      await dispatch(addNewPost({ title, content, userId }) as any).unwrap();
-      setTitle('');
-      setContent('');
+      try {
+        setError('');
+        await dispatch(addNewPost({ title, content, userId }) as any).unwrap();
+      } catch (err: any) {
+        setContent('');
+        setTitle('');
+        setError(err.message);
+        // console.error('Failed to save the post: ', err);
+      } finally {
+      }
     }
   };
 
@@ -38,6 +51,7 @@ const AddPostForm = () => {
 
   return (
     <section className={styles.addPost}>
+      {error && <ErrorMsg errorText={error} closeError={closeErrorMsg} />}
       <h2 className={styles.title}>Add a New Post</h2>
       <form className={styles.form} onSubmit={onSavePost}>
         <label htmlFor="postTitle">Post Title: </label>

@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.error {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border: 2px solid $color-error;
+  color: $color-error;
+  font-size: 30px;
+  background: lighten($color-error, 30%);
+}
+
+.closeBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.icon {
+  color: $color-error;
+}
