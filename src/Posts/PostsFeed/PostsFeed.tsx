@@ -11,7 +11,6 @@ import styles from './PostsFeed.module.scss';
 import { useEffect } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
-import { AnyAction } from '@reduxjs/toolkit';
 
 const PostsFeed = () => {
   const posts = useSelector(selectAllPosts);

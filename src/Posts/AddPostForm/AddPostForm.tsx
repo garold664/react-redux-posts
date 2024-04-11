@@ -5,13 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './AddPostForm.module.scss';
 import { RootState } from '../../store/store';
 import ErrorMsg from '../../components/ErrorMsg/ErrorMsg';
+import { useMainContext } from '../../contexts/mainContext';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
 
+  const { error, setError, closeErrorMsg } = useMainContext();
   const users = useSelector((state: RootState) => state.users);
   const [title, setTitle] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState(users[0].id);
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -21,9 +23,9 @@ const AddPostForm = () => {
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
 
-  const closeErrorMsg = () => {
-    setError('');
-  };
+  // const closeErrorMsg = () => {
+  //   setError('');
+  // };
 
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,7 +37,6 @@ const AddPostForm = () => {
         setContent('');
         setTitle('');
         setError(err.message);
-        // console.error('Failed to save the post: ', err);
       } finally {
       }
     }
