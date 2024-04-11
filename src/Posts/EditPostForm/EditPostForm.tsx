@@ -33,8 +33,8 @@ const EditPostForm = () => {
     setContent(event.target.value);
   const onSavePost = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (title && content) {
-      dispatch(updatePost({ id: postId, title, content }));
+    if (title && content && postId) {
+      dispatch(updatePost({ id: postId, title, content }) as any);
       navigate(`/posts/${postId}`);
     }
   };
