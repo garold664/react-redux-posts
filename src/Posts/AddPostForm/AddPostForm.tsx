@@ -51,7 +51,7 @@ const AddPostForm = () => {
   ));
 
   return (
-    <section className={styles.addPost}>
+    <section className={styles.post}>
       {error && <ErrorMsg errorText={error} closeError={closeErrorMsg} />}
       <h2 className={styles.title}>Add a New Post</h2>
       <form className={styles.form} onSubmit={onSavePost}>

@@ -5,7 +5,7 @@ import './App.scss';
 import styles from './App.module.scss';
 import Posts from './Posts/PostsFeed/PostsFeed';
 import { SinglePostPage } from './Posts/SinglePostPage';
-import EditPostForm from './Posts/EditPostForm';
+import EditPostForm from './Posts/EditPostForm/EditPostForm';
 
 function App() {
   return (

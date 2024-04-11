@@ -16,7 +16,7 @@ export const SinglePostPage = () => {
 
   if (!post) {
     return (
-      <section>
+      <section className="container">
         <h2>Post not found!</h2>
       </section>
     );

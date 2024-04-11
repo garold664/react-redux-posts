@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { selectPostById, updatePost } from '../store/posts/postsSlice';
+import { selectPostById, updatePost } from '../../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { RootState } from '../store/store';
+import { RootState } from '../../store/store';
 
+import styles from './EditPostForm.module.scss';
 const EditPostForm = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const post = useSelector((state: RootState) =>
-    selectPostById(state, postId!)
-  );
+  let post = useSelector((state: RootState) => selectPostById(state, postId!));
+
+  if (!post) {
+    post = {
+      title: '',
+      content: '',
+      id: '',
+      date: '',
+      userId: '',
+      reactions: {},
+    };
+  }
 
   const [title, setTitle] = useState(post!.title);
   const [content, setContent] = useState(post!.content);
-
-  if (!post) {
-    return (
-      <section>
-        <h2>Post not found!</h2>
-      </section>
-    );
-  }
 
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
@@ -36,10 +38,10 @@ const EditPostForm = () => {
       navigate(`/posts/${postId}`);
     }
   };
-  return (
-    <section>
-      <h2>Edit Post</h2>
-      <form onSubmit={onSavePost}>
+  let element = (
+    <article className={styles.post}>
+      <h2 className={styles.title}>Edit Post</h2>
+      <form className={styles.form} onSubmit={onSavePost}>
         <label htmlFor="postTitle">Post Title: </label>
         <input
           type="text"
@@ -57,8 +59,18 @@ const EditPostForm = () => {
         />
         <button type="submit">Save Post</button>
       </form>
-    </section>
+    </article>
   );
+
+  if (!post!.id) {
+    element = (
+      <article className={styles.post}>
+        <h2>Post not found!</h2>
+      </article>
+    );
+  }
+
+  return <section className="container">{element}</section>;
 };
 
 export default EditPostForm;
