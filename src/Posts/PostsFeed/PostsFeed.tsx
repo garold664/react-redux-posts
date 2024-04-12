@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import AddPostForm from '../AddPostForm/AddPostForm';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PostAuthor from '../PostAuthor/PostAuthor';
 import TimeAgo from '../TimeAgo';
 import ReactionButtons from '../ReactionButtons/ReactionButtons';
@@ -13,6 +13,8 @@ import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
 
 const PostsFeed = () => {
+  const location = useLocation();
+  console.log(location);
   const posts = useSelector(selectAllPosts);
 
   const postsStatus = useSelector((state: RootState) => state.posts.status);

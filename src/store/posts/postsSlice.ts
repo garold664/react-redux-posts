@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-type Reaction = {
+export type Reaction = {
   cat: number;
   thumbsUp: number;
   hooray: number;
@@ -36,7 +36,6 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     'https://test-20e2d-default-rtdb.firebaseio.com/posts.json'
   );
   const data = await response.json();
-  console.log(data);
   return data;
 });
 
