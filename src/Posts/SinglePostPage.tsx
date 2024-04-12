@@ -1,20 +1,41 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import PostAuthor from './PostAuthor/PostAuthor';
 import TimeAgo from './TimeAgo';
-import { selectPostById } from '../store/posts/postsSlice';
+import { fetchPosts, selectPostById } from '../store/posts/postsSlice';
 
 import type { RootState } from '../store/store';
+import { useEffect } from 'react';
+import Spinner from '../components/Spinner/Spinner';
 
 export const SinglePostPage = () => {
+  const dispatch = useDispatch();
+  const postsStatus = useSelector((state: RootState) => state.posts.status);
+
+  useEffect(() => {
+    if (postsStatus === 'idle') {
+      dispatch(fetchPosts() as any);
+    }
+  }, [postsStatus, dispatch]);
+
   const { postId } = useParams();
   const post = useSelector((state: RootState) =>
     selectPostById(state, postId!)
   );
-
-  console.log(post);
+  // console.log(postsStatus);
+  if (postsStatus === 'loading' || postsStatus === 'idle') {
+    return (
+      <section
+        className="container"
+        style={{ textAlign: 'center', marginTop: '20px' }}
+      >
+        <Spinner />
+      </section>
+    );
+  }
 
   if (!post) {
+    console.log(postsStatus);
     return (
       <section className="container">
         <h2>Post not found!</h2>
