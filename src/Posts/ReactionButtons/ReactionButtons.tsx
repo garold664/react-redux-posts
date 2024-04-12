@@ -22,7 +22,13 @@ const ReactionButtons = ({ post }: { post: Post }) => {
         type="button"
         className={styles.button}
         onClick={() =>
-          dispatch(addReaction({ postId: post.id, reaction: name }))
+          dispatch(
+            addReaction({
+              postId: post.id,
+              reaction: name,
+              reactionValue: post.reactions[name],
+            }) as any
+          )
         }
       >
         {emoji} {post.reactions[name as keyof typeof post.reactions]}

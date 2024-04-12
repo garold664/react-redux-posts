@@ -70,6 +70,33 @@ export const updatePost = createAsyncThunk(
   }
 );
 
+export const addReaction = createAsyncThunk(
+  'posts/addReaction',
+
+  async ({
+    postId,
+    reaction,
+    reactionValue,
+  }: {
+    postId: string;
+    reaction: keyof Reaction;
+    reactionValue: number;
+  }) => {
+    const response = await fetch(
+      `https://test-20e2d-default-rtdb.firebaseio.com/posts/${postId}/reactions/${reaction}.json`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(reactionValue + 1),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    await response.json();
+    return { postId, reaction, reactionValue };
+  }
+);
+
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
   async (initialPost: { title: string; content: string; userId: string }) => {
@@ -103,32 +130,7 @@ export const addNewPost = createAsyncThunk(
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {
-    // updatePost: (state, action) => {
-    //   const { id, title, content } = action.payload;
-    //   const existingPost = state.posts.find((post) => post.id === id);
-
-    //   if (existingPost) {
-    //     existingPost.title = title;
-    //     existingPost.content = content;
-    //   }
-    // },
-    addReaction(state, action) {
-      const {
-        postId,
-        reaction,
-      }: {
-        postId: string;
-        reaction: 'cat' | 'thumbsUp' | 'hooray' | 'heart' | 'rocket' | 'eyes';
-      } = action.payload;
-      const existingPost = state.posts.find(
-        (post) => post.id === postId
-      ) as Post;
-      if (existingPost) {
-        existingPost.reactions[reaction]++;
-      }
-    },
-  },
+  reducers: {},
 
   extraReducers(builder) {
     builder
@@ -164,11 +166,18 @@ const postsSlice = createSlice({
             ...action.payload,
           };
         }
+      })
+      .addCase(addReaction.fulfilled, (state, action) => {
+        let currentPostIndex = state.posts.findIndex(
+          (post) => post.id === action.payload.postId
+        );
+        if (currentPostIndex !== -1) {
+          state.posts[currentPostIndex].reactions[action.payload.reaction] =
+            action.payload.reactionValue + 1;
+        }
       });
   },
 });
-
-export const { addReaction } = postsSlice.actions;
 
 export default postsSlice.reducer;
 
