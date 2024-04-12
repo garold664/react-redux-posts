@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { selectPostById, updatePost } from '../../store/posts/postsSlice';
+import { Post, selectPostById, updatePost } from '../../store/posts/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useParams, useNavigate } from 'react-router-dom';
@@ -11,16 +11,14 @@ const EditPostForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let post = useSelector((state: RootState) => selectPostById(state, postId!));
+  let post: Post | { title: string; content: string; id: string } | undefined =
+    useSelector((state: RootState) => selectPostById(state, postId!));
 
   if (!post) {
     post = {
       title: '',
       content: '',
       id: '',
-      date: '',
-      userId: '',
-      reactions: {},
     };
   }
 
