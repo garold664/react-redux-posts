@@ -13,11 +13,14 @@ import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
 import queryString from 'query-string';
 
-function sortPosts(posts: Post[], key: keyof Post) {
+function sortPosts(posts: Post[], key: keyof Post, order) {
   if (!posts) return [];
   if (!key) return posts;
   return [...posts].sort((a, b) => {
+    if (order === 'asc') return a[key] > b[key] ? 1 : -1;
+    if (order === 'desc') return a[key] < b[key] ? 1 : -1;
     return a[key] < b[key] ? -1 : 1;
+
     // return a[key].localeCompare(b[key]);
   });
 }
@@ -26,14 +29,15 @@ const PostsFeed = () => {
   const location = useLocation();
   const query = queryString.parse(location.search);
   const posts = useSelector(selectAllPosts);
-  const [sortKey, _setSortKey] = useState<keyof Post | null>(query.sort);
+  const [sortOrder, _setSortOrder] = useState(query.order as 'asc' | 'desc');
+  const [sortKey, _setSortKey] = useState<keyof Post>(query.sort as keyof Post);
   const [sortedPosts, setSortedPosts] = useState<Post[] | null>(null);
   const postsStatus = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);
 
   useEffect(() => {
     if (postsStatus === 'succeeded') {
-      setSortedPosts(sortPosts(posts, sortKey));
+      setSortedPosts(sortPosts(posts, sortKey, sortOrder));
     } else {
       setSortedPosts(posts);
     }
@@ -50,9 +54,6 @@ const PostsFeed = () => {
   if (!posts.length) {
     return;
   }
-  const orderedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
 
   let content;
 
