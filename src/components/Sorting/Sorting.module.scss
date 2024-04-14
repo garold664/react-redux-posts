@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.link {
+  text-decoration: none;
+  background-color: $color-secondary;
+  padding: 3px 8px;
+  border-radius: 11px;
+  display: inline-flex;
+  border: 3px solid $color-secondary;
+  gap: 7px;
+  // align-items: center;
+  transition: border 0.3s ease;
+
+  &:hover {
+    border-color: $color-primary;
+    // color: gray;
+  }
+
+  &:active {
+    border-color: transparent;
+    box-shadow: 0 0 5px 2px $color-primary;
+  }
+}

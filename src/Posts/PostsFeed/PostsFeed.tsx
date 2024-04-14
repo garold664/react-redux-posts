@@ -12,8 +12,9 @@ import { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
 import queryString from 'query-string';
+import Sorting from '../../components/Sorting/Sorting';
 
-function sortPosts(posts: Post[], key: keyof Post, order) {
+function sortPosts(posts: Post[], key: keyof Post, order: 'asc' | 'desc') {
   if (!posts) return [];
   if (!key) return posts;
   return [...posts].sort((a, b) => {
@@ -29,19 +30,21 @@ const PostsFeed = () => {
   const location = useLocation();
   const query = queryString.parse(location.search);
   const posts = useSelector(selectAllPosts);
-  const [sortOrder, _setSortOrder] = useState(query.order as 'asc' | 'desc');
-  const [sortKey, _setSortKey] = useState<keyof Post>(query.sort as keyof Post);
+  const [sortOrder, setSortOrder] = useState(query.order as 'asc' | 'desc');
+  // const [sortOrder, setSortOrder] = useState('asc' as 'asc' | 'desc');
+  const [sortKey, setSortKey] = useState<keyof Post>(query.sort as keyof Post);
   const [sortedPosts, setSortedPosts] = useState<Post[] | null>(null);
   const postsStatus = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);
 
   useEffect(() => {
+    setSortKey(query.sort as keyof Post);
     if (postsStatus === 'succeeded') {
       setSortedPosts(sortPosts(posts, sortKey, sortOrder));
     } else {
       setSortedPosts(posts);
     }
-  }, [posts, sortKey, postsStatus]);
+  }, [posts, sortKey, postsStatus, sortOrder]);
 
   const dispatch = useDispatch();
 
@@ -90,7 +93,7 @@ const PostsFeed = () => {
   const renderedPosts = (
     <>
       <AddPostForm />
-
+      <Sorting setOrder={setSortOrder} order={sortOrder} currentKey={sortKey} />
       <ul className={styles.posts}>{content}</ul>
     </>
   );
