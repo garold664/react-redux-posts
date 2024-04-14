@@ -15,7 +15,7 @@ const AddPostForm = () => {
   const [title, setTitle] = useState('');
   // const [error, setError] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState(users[0].id);
+  const [userId, setUserId] = useState('');
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
   const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -65,7 +65,7 @@ const AddPostForm = () => {
         />
         <label htmlFor="postAuthor">Author: </label>
         <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-          {/* <option value=""></option> */}
+          <option value="" key="0"></option>
           {userOptions}
         </select>
         <label htmlFor="postContent">Post Content: </label>
