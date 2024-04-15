@@ -28,11 +28,9 @@ function sortPosts(posts: Post[], key: keyof Post, order: 'asc' | 'desc') {
 
 const PostsFeed = () => {
   const location = useLocation();
-  const {
-    sort: sortKey,
-    order: sortOrder,
-  }: { sort: ParsedQuery<keyof Post>; order: ParsedQuery<'asc' | 'desc'> } =
-    queryString.parse(location.search);
+  const { sort: sortKey, order: sortOrder } = queryString.parse(
+    location.search
+  );
   const posts = useSelector(selectAllPosts);
   // const [sortOrder, setSortOrder] = useState(query.order as 'asc' | 'desc');
   // const [sortOrder, setSortOrder] = useState('asc' as 'asc' | 'desc');
@@ -44,7 +42,9 @@ const PostsFeed = () => {
   useEffect(() => {
     // setSortKey(query.sort as keyof Post);
     if (postsStatus === 'succeeded') {
-      setSortedPosts(sortPosts(posts, sortKey, sortOrder));
+      setSortedPosts(
+        sortPosts(posts, sortKey as keyof Post, sortOrder as 'asc' | 'desc')
+      );
     } else {
       setSortedPosts(posts);
     }
