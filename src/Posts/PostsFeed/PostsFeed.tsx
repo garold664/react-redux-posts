@@ -40,7 +40,7 @@ function sortPosts(
       )
         return 0;
       if (order === 'asc') return a[key].localeCompare(b[key]);
-      if (order === 'desc') return a[key].localeCompare(b[key]);
+      if (order === 'desc') return b[key].localeCompare(a[key]);
       return a[key]?.localeCompare(b[key] as string);
     });
 }
