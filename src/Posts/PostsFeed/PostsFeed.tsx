@@ -11,7 +11,7 @@ import styles from './PostsFeed.module.scss';
 import { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
-import queryString from 'query-string';
+import queryString, { ParsedQuery } from 'query-string';
 import Sorting from '../../components/Sorting/Sorting';
 
 function sortPosts(posts: Post[], key: keyof Post, order: 'asc' | 'desc') {
@@ -28,17 +28,21 @@ function sortPosts(posts: Post[], key: keyof Post, order: 'asc' | 'desc') {
 
 const PostsFeed = () => {
   const location = useLocation();
-  const query = queryString.parse(location.search);
+  const {
+    sort: sortKey,
+    order: sortOrder,
+  }: { sort: ParsedQuery<keyof Post>; order: ParsedQuery<'asc' | 'desc'> } =
+    queryString.parse(location.search);
   const posts = useSelector(selectAllPosts);
-  const [sortOrder, setSortOrder] = useState(query.order as 'asc' | 'desc');
+  // const [sortOrder, setSortOrder] = useState(query.order as 'asc' | 'desc');
   // const [sortOrder, setSortOrder] = useState('asc' as 'asc' | 'desc');
-  const [sortKey, setSortKey] = useState<keyof Post>(query.sort as keyof Post);
+  // const [sortKey, setSortKey] = useState<keyof Post>(query.sort as keyof Post);
   const [sortedPosts, setSortedPosts] = useState<Post[] | null>(null);
   const postsStatus = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);
 
   useEffect(() => {
-    setSortKey(query.sort as keyof Post);
+    // setSortKey(query.sort as keyof Post);
     if (postsStatus === 'succeeded') {
       setSortedPosts(sortPosts(posts, sortKey, sortOrder));
     } else {
@@ -93,7 +97,8 @@ const PostsFeed = () => {
   const renderedPosts = (
     <>
       <AddPostForm />
-      <Sorting setOrder={setSortOrder} order={sortOrder} currentKey={sortKey} />
+      {/* <Sorting setOrder={setSortOrder} order={sortOrder} currentKey={sortKey} /> */}
+      <Sorting />
       <ul className={styles.posts}>{content}</ul>
     </>
   );
