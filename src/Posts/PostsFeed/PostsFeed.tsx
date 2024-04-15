@@ -11,19 +11,38 @@ import styles from './PostsFeed.module.scss';
 import { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
-import queryString, { ParsedQuery } from 'query-string';
+import queryString from 'query-string';
 import Sorting from '../../components/Sorting/Sorting';
+import { User } from '../../store/posts/userSlice';
 
-function sortPosts(posts: Post[], key: keyof Post, order: 'asc' | 'desc') {
+function sortPosts(
+  posts: Post[],
+  key: 'title' | 'date' | 'author',
+  order: 'asc' | 'desc',
+  authors: User[]
+) {
   if (!posts) return [];
   if (!key) return posts;
-  return [...posts].sort((a, b) => {
-    if (order === 'asc') return a[key] > b[key] ? 1 : -1;
-    if (order === 'desc') return a[key] < b[key] ? 1 : -1;
-    return a[key] < b[key] ? -1 : 1;
-
-    // return a[key].localeCompare(b[key]);
-  });
+  return [...posts]
+    .map((post) => ({
+      ...post,
+      author: authors.find((user) => user.id === post.userId)?.name,
+    }))
+    .sort((a, b) => {
+      // if (order === 'asc') return a[key] > b[key] ? 1 : -1;
+      // if (order === 'desc') return a[key] < b[key] ? 1 : -1;
+      // return a[key] < b[key] ? -1 : 1;
+      if (
+        !a[key] ||
+        !b[key] ||
+        typeof a[key] !== 'string' ||
+        typeof b[key] !== 'string'
+      )
+        return 0;
+      if (order === 'asc') return a[key].localeCompare(b[key]);
+      if (order === 'desc') return a[key].localeCompare(b[key]);
+      return a[key]?.localeCompare(b[key] as string);
+    });
 }
 
 const PostsFeed = () => {
@@ -32,18 +51,27 @@ const PostsFeed = () => {
     location.search
   );
   const posts = useSelector(selectAllPosts);
-  // const [sortOrder, setSortOrder] = useState(query.order as 'asc' | 'desc');
-  // const [sortOrder, setSortOrder] = useState('asc' as 'asc' | 'desc');
-  // const [sortKey, setSortKey] = useState<keyof Post>(query.sort as keyof Post);
+
   const [sortedPosts, setSortedPosts] = useState<Post[] | null>(null);
   const postsStatus = useSelector((state: RootState) => state.posts.status);
   const error = useSelector((state: RootState) => state.posts.error);
 
+  const authors = useSelector((state: RootState) => {
+    return state.users;
+  });
+
+  console.log(authors);
+
   useEffect(() => {
-    // setSortKey(query.sort as keyof Post);
     if (postsStatus === 'succeeded') {
+      console.log(sortedPosts);
       setSortedPosts(
-        sortPosts(posts, sortKey as keyof Post, sortOrder as 'asc' | 'desc')
+        sortPosts(
+          posts,
+          sortKey as keyof Post,
+          sortOrder as 'asc' | 'desc',
+          authors
+        )
       );
     } else {
       setSortedPosts(posts);

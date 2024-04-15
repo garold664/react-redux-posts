@@ -23,19 +23,16 @@ const AddPostForm = () => {
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
 
-  // const closeErrorMsg = () => {
-  //   setError('');
-  // };
-
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content) {
       try {
         setError('');
         await dispatch(addNewPost({ title, content, userId }) as any).unwrap();
-      } catch (err: any) {
         setContent('');
         setTitle('');
+        setUserId('');
+      } catch (err: any) {
         setError(err.message);
       } finally {
       }

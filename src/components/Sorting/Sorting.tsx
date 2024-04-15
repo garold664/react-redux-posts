@@ -6,13 +6,13 @@ import queryString from 'query-string';
 // import { useEffect, useState } from 'react';
 
 type SortingLinkProps = {
-  sortingKey: keyof Post;
+  sortingKey: 'title' | 'date' | 'author';
 };
 function SortingLink({ sortingKey }: SortingLinkProps) {
   const location = useLocation();
   const navigate = useNavigate();
   let { sort: currentSortingKey, order } = queryString.parse(location.search);
-  console.log(currentSortingKey);
+  // console.log(currentSortingKey);
 
   function handleSorting() {
     if (currentSortingKey === sortingKey || currentSortingKey === undefined) {
@@ -38,7 +38,7 @@ export default function Sorting() {
     <section className={styles.container}>
       <SortingLink sortingKey="title" />
       <SortingLink sortingKey="date" />
-      <SortingLink sortingKey="userId" />
+      <SortingLink sortingKey="author" />
     </section>
   );
 }
