@@ -1,18 +1,17 @@
 import { CircleChevronDown, CircleChevronUp } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { Post } from '../../store/posts/postsSlice';
+// import type { Post } from '../../store/posts/postsSlice';
 import styles from './Sorting.module.scss';
 import queryString from 'query-string';
 // import { useEffect, useState } from 'react';
 
-type SortingLinkProps = {
-  sortingKey: 'title' | 'date' | 'author';
+export type SortingProps = {
+  sortingKey: 'title' | 'date' | 'author' | 'reactionsNumber' | 'content';
 };
-function SortingLink({ sortingKey }: SortingLinkProps) {
+function SortingLink({ sortingKey }: SortingProps) {
   const location = useLocation();
   const navigate = useNavigate();
   let { sort: currentSortingKey, order } = queryString.parse(location.search);
-  // console.log(currentSortingKey);
 
   function handleSorting() {
     if (currentSortingKey === sortingKey || currentSortingKey === undefined) {
@@ -37,8 +36,10 @@ export default function Sorting() {
   return (
     <section className={styles.container}>
       <SortingLink sortingKey="title" />
-      <SortingLink sortingKey="date" />
+      <SortingLink sortingKey="content" />
       <SortingLink sortingKey="author" />
+      <SortingLink sortingKey="date" />
+      <SortingLink sortingKey="reactionsNumber" />
     </section>
   );
 }

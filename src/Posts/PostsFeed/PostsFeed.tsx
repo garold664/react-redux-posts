@@ -12,14 +12,15 @@ import { useEffect, useState } from 'react';
 import Spinner from '../../components/Spinner/Spinner';
 import { RootState } from '../../store/store';
 import queryString from 'query-string';
-import Sorting from '../../components/Sorting/Sorting';
+import Sorting, { SortingProps } from '../../components/Sorting/Sorting';
 import { User } from '../../store/posts/userSlice';
 
-type ModifiedPost = Post & { author: string };
+type ModifiedPost = Post & { author: string; reactionsNumber: number };
 
 function sortPosts(
   posts: Post[],
-  key: 'title' | 'date' | 'author',
+  // key: 'title' | 'date' | 'author' | 'reactionsNumber' | 'content',
+  key: SortingProps['sortingKey'],
   order: 'asc' | 'desc',
   authors: User[]
 ) {
@@ -28,15 +29,29 @@ function sortPosts(
   return [...posts]
     .map((post) => {
       const authorName = authors.find((user) => user.id === post.userId)?.name;
+      const reactionsNumber = Object.values(post.reactions).reduce(
+        (accum, val) => accum + val,
+        0
+      );
       return {
         ...post,
         author: authorName || 'Unknown author',
+        reactionsNumber,
       };
     })
     .sort((a: ModifiedPost, b: ModifiedPost) => {
+      if (key === 'reactionsNumber' && order === 'asc') {
+        return a[key] - b[key];
+      }
+      if (key === 'reactionsNumber' && order === 'desc') {
+        return b[key] - a[key];
+      }
+      if (key === 'reactionsNumber') {
+        return a[key] - b[key];
+      }
       if (order === 'asc') return a[key].localeCompare(b[key]);
       if (order === 'desc') return b[key].localeCompare(a[key]);
-      return a[key]?.localeCompare(b[key] as string);
+      return a[key].localeCompare(b[key] as string);
     });
 }
 
@@ -63,7 +78,7 @@ const PostsFeed = () => {
       setSortedPosts(
         sortPosts(
           posts,
-          sortKey as keyof Post,
+          sortKey as SortingProps['sortingKey'],
           sortOrder as 'asc' | 'desc',
           authors
         )
@@ -120,7 +135,6 @@ const PostsFeed = () => {
   const renderedPosts = (
     <>
       <AddPostForm />
-      {/* <Sorting setOrder={setSortOrder} order={sortOrder} currentKey={sortKey} /> */}
       <Sorting />
       <ul className={styles.posts}>{content}</ul>
     </>
