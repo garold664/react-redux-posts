@@ -15,6 +15,8 @@ import queryString from 'query-string';
 import Sorting from '../../components/Sorting/Sorting';
 import { User } from '../../store/posts/userSlice';
 
+type ModifiedPost = Post & { author: string };
+
 function sortPosts(
   posts: Post[],
   key: 'title' | 'date' | 'author',
@@ -24,21 +26,14 @@ function sortPosts(
   if (!posts) return [];
   if (!key) return posts;
   return [...posts]
-    .map((post) => ({
-      ...post,
-      author: authors.find((user) => user.id === post.userId)?.name,
-    }))
-    .sort((a, b) => {
-      // if (order === 'asc') return a[key] > b[key] ? 1 : -1;
-      // if (order === 'desc') return a[key] < b[key] ? 1 : -1;
-      // return a[key] < b[key] ? -1 : 1;
-      if (
-        !a[key] ||
-        !b[key] ||
-        typeof a[key] !== 'string' ||
-        typeof b[key] !== 'string'
-      )
-        return 0;
+    .map((post) => {
+      const authorName = authors.find((user) => user.id === post.userId)?.name;
+      return {
+        ...post,
+        author: authorName || 'Unknown author',
+      };
+    })
+    .sort((a: ModifiedPost, b: ModifiedPost) => {
       if (order === 'asc') return a[key].localeCompare(b[key]);
       if (order === 'desc') return b[key].localeCompare(a[key]);
       return a[key]?.localeCompare(b[key] as string);
