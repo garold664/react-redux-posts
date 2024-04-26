@@ -12,8 +12,10 @@ button {
   z-index: 1000;
   width: 100%;
   padding: 25px;
-  background-color: $color-secondary;
-  box-shadow: 0 5px 5px gray;
+  // background-color: $color-secondary;
+  background-color: $color-white;
+
+  box-shadow: 0 3px 2px $color-black;
   border-radius: 0 0 10px 10px;
 }
 
@@ -34,7 +36,7 @@ button {
 
   &.active,
   &:active {
-    color: #ffffff;
+    color: $color-white;
     background-color: #000000;
     box-shadow: 0 10px 10px -5px darkgray;
     cursor: default;
