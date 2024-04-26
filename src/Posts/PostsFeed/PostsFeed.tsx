@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import AddPostForm from '../AddPostForm/AddPostForm';
 import { Link, useLocation } from 'react-router-dom';
 import PostAuthor from '../PostAuthor/PostAuthor';
 import TimeAgo from '../TimeAgo';
@@ -70,8 +69,6 @@ const PostsFeed = () => {
     return state.users;
   });
 
-  console.log(authors);
-
   useEffect(() => {
     if (postsStatus === 'succeeded') {
       setSortedPosts(
@@ -115,7 +112,6 @@ const PostsFeed = () => {
     content = sortedPosts.map((post) => (
       <li key={post.id} className={styles.post}>
         <h2>{post.title}</h2>
-        {/* <p>{post.id}</p> */}
         <p>{post.content}</p>
         <div>
           <PostAuthor userId={post.userId} />
@@ -133,7 +129,6 @@ const PostsFeed = () => {
 
   const renderedPosts = (
     <>
-      <AddPostForm />
       <Sorting />
       <ul className={styles.posts}>{content}</ul>
     </>
