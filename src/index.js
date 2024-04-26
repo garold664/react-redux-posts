@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import Store from './store/store';
 import { fetchUsers } from './store/posts/userSlice';
+import { BrowserRouter } from 'react-router-dom';
 
 Store.dispatch(fetchUsers());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={Store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
 );
 

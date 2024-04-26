@@ -1,4 +1,4 @@
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import MainContextProvider from './contexts/mainContext';
 
 import './App.scss';
@@ -11,25 +11,23 @@ function App() {
   return (
     <>
       <MainContextProvider>
-        <BrowserRouter>
-          <nav className={styles.nav}>
-            <div className="container">
-              <NavLink className={styles.link} to="/">
-                Home
-              </NavLink>
-              <NavLink className={styles.link} to="/posts">
-                Posts
-              </NavLink>
-            </div>
-          </nav>
-          <main>
-            <Routes>
-              <Route path="/posts" element={<Posts />} />
-              <Route path="/posts/:postId" element={<SinglePostPage />} />
-              <Route path="/editPost/:postId" element={<EditPostForm />} />
-            </Routes>
-          </main>
-        </BrowserRouter>
+        <nav className={styles.nav}>
+          <div className="container">
+            <NavLink className={styles.link} to="/">
+              Home
+            </NavLink>
+            <NavLink className={styles.link} to="/posts">
+              Posts
+            </NavLink>
+          </div>
+        </nav>
+        <main>
+          <Routes>
+            <Route path="/posts" element={<Posts />} />
+            <Route path="/posts/:postId" element={<SinglePostPage />} />
+            <Route path="/editPost/:postId" element={<EditPostForm />} />
+          </Routes>
+        </main>
       </MainContextProvider>
     </>
   );
