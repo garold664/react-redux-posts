@@ -74,7 +74,6 @@ const PostsFeed = () => {
 
   useEffect(() => {
     if (postsStatus === 'succeeded') {
-      console.log(sortedPosts);
       setSortedPosts(
         sortPosts(
           posts,
@@ -86,7 +85,7 @@ const PostsFeed = () => {
     } else {
       setSortedPosts(posts);
     }
-  }, [posts, sortKey, postsStatus, sortOrder]);
+  }, [posts, sortKey, postsStatus, sortOrder, authors]);
 
   const dispatch = useDispatch();
 

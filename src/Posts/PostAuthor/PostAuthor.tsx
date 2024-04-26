@@ -5,9 +5,8 @@ import { RootState } from '../../store/store';
 
 const PostAuthor = ({ userId }: { userId: string }) => {
   const author = useSelector((state: RootState) => {
-    return state.users.find((user) => user.id == userId);
+    return state.users.find((user) => user.id === userId);
   });
-  // console.log(author);
 
   return (
     <span>
