@@ -13,9 +13,8 @@ button {
   width: 100%;
   padding: 25px;
   background-color: $color-secondary;
-  // background-color: #fff;
-  // border-bottom: 3px solid black;
   box-shadow: 0 5px 5px gray;
+  border-radius: 0 0 10px 10px;
 }
 
 .link {
@@ -27,9 +26,17 @@ button {
   transition: 0.3s;
   font-size: 25px;
   margin-right: 20px;
-}
 
-.link:hover {
-  color: #2ee3d4;
-  background-color: #000000;
+  &:hover {
+    color: $color-primary;
+    background-color: #000000;
+  }
+
+  &.active,
+  &:active {
+    color: #ffffff;
+    background-color: #000000;
+    box-shadow: 0 10px 10px -5px darkgray;
+    cursor: default;
+  }
 }

@@ -14,10 +14,20 @@ function App() {
       <MainContextProvider>
         <nav className={styles.nav}>
           <div className="container">
-            <NavLink className={styles.link} to="/">
+            <NavLink
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.active : ''}`
+              }
+              to="/posts"
+            >
               Home
             </NavLink>
-            <NavLink className={styles.link} to="/newpost">
+            <NavLink
+              className={({ isActive }) =>
+                `${styles.link} ${isActive ? styles.active : ''}`
+              }
+              to="/newpost"
+            >
               Add a new Post
             </NavLink>
           </div>
