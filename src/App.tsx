@@ -15,6 +15,7 @@ function App() {
         <nav className={styles.nav}>
           <div className="container">
             <NavLink
+              end
               className={({ isActive }) =>
                 `${styles.link} ${isActive ? styles.active : ''}`
               }
