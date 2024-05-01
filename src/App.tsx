@@ -8,20 +8,22 @@ import SinglePostPage from './Posts/SinglePostPage/SinglePostPage';
 import EditPostForm from './Posts/EditPostForm/EditPostForm';
 import AddPostForm from './Posts/AddPostForm/AddPostForm';
 
+import logo from './assets/icons/logo.svg';
+
 function App() {
   return (
     <>
       <MainContextProvider>
         <nav className={styles.nav}>
-          <div className="container">
+          <div className={styles.navContainer + ' container'}>
             <NavLink
               end
               className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.active : ''}`
+                `${styles.logo} ${isActive ? styles.active : ''}`
               }
               to="/posts"
             >
-              Home
+              <img src={logo} height={60} alt="" />
             </NavLink>
             <NavLink
               className={({ isActive }) =>

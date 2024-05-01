@@ -20,6 +20,27 @@ button {
   backdrop-filter: blur(10px);
 }
 
+.navContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 20px;
+  transition: transform 0.4s;
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &.active {
+    cursor: default;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
 .link {
   @extend %link;
 }
