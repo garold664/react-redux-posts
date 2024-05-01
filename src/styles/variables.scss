@@ -12,4 +12,30 @@ $color-black: #212121;
   font-size: 50px;
   text-align: center;
   text-decoration: underline $color-primary 7px;
+  margin: 0;
+  padding: 20px 0 45px;
+}
+
+%link {
+  background-color: $color-primary;
+  padding: 5px;
+  border-radius: 5px;
+  color: #000000;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 25px;
+  margin-right: 20px;
+
+  &:hover {
+    color: $color-primary;
+    background-color: #000000;
+  }
+
+  &.active,
+  &:active {
+    color: $color-white;
+    background-color: #000000;
+    box-shadow: 0 10px 10px -5px darkgray;
+    cursor: default;
+  }
 }

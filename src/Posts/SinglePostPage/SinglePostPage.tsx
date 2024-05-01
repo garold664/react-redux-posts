@@ -10,7 +10,8 @@ import Spinner from '../../components/Spinner/Spinner';
 
 import styles from './SinglePostPage.module.scss';
 
-export const SinglePostPage = () => {
+import avatar from '../../assets/img/default-avatar.webp';
+const SinglePostPage = () => {
   const dispatch = useDispatch();
   const postsStatus = useSelector((state: RootState) => state.posts.status);
 
@@ -44,16 +45,23 @@ export const SinglePostPage = () => {
     );
   }
   return (
-    <section>
-      <article className="container">
+    <section className={styles.post}>
+      <article className={styles.postContainer + ' container'}>
         <h2 className={styles.title}>{post.title}</h2>
         <p>{post.content}</p>
-        <div>
-          <PostAuthor userId={post.userId} />
-          <TimeAgo timestamp={post.date} />
+        <div className={styles.info}>
+          <img src={avatar} />
+          <div className={styles.infoGroup}>
+            <PostAuthor userId={post.userId} className={styles.author} />
+            <TimeAgo timestamp={post.date} />
+          </div>
         </div>
-        <Link to={`/editPost/${post.id}`}>Edit post</Link>
+        <Link to={`/editPost/${post.id}`} className={styles.button}>
+          Edit post
+        </Link>
       </article>
     </section>
   );
 };
+
+export default SinglePostPage;

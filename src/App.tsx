@@ -4,7 +4,7 @@ import MainContextProvider from './contexts/mainContext';
 import './App.scss';
 import styles from './App.module.scss';
 import Posts from './Posts/PostsFeed/PostsFeed';
-import { SinglePostPage } from './Posts/SinglePostPage/SinglePostPage';
+import SinglePostPage from './Posts/SinglePostPage/SinglePostPage';
 import EditPostForm from './Posts/EditPostForm/EditPostForm';
 import AddPostForm from './Posts/AddPostForm/AddPostForm';
 

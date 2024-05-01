@@ -1,5 +1,51 @@
 @import '../../styles/variables';
 
+.post {
+  background-color: $color-secondary;
+  // min-height: calc(100vh - 83.6px);
+  min-height: 100%;
+  padding-top: 30px;
+  flex-grow: 1;
+}
+
+.postContainer {
+  position: relative;
+  background-color: $color-white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px $color-black;
+}
+
 .title {
   @extend %title;
+}
+
+.info {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+
+  img {
+    width: 80px;
+  }
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.author {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.button {
+  @extend %link;
+  display: inline-block;
+  margin-top: 50px;
 }
