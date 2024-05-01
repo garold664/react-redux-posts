@@ -13,10 +13,11 @@ button {
   width: 100%;
   padding: 25px;
   // background-color: $color-secondary;
-  background-color: $color-white;
+  background-color: rgba($color-white, 0.7);
 
   box-shadow: 0 3px 2px $color-black;
   border-radius: 0 0 10px 10px;
+  backdrop-filter: blur(10px);
 }
 
 .link {

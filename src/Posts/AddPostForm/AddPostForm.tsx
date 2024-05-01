@@ -48,36 +48,34 @@ const AddPostForm = () => {
   ));
 
   return (
-    <section className="container">
-      <section className={styles.post}>
-        {error && <ErrorMsg errorText={error} closeError={closeErrorMsg} />}
-        <h2 className={styles.title}>Add a New Post</h2>
-        <form className={styles.form} onSubmit={onSavePost}>
-          <label htmlFor="postTitle">Post Title: </label>
-          <input
-            type="text"
-            id="postTitle"
-            name="postTitle"
-            value={title}
-            onChange={onTitleChange}
-          />
-          <label htmlFor="postAuthor">Author: </label>
-          <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
-            <option value="" key="0"></option>
-            {userOptions}
-          </select>
-          <label htmlFor="postContent">Post Content: </label>
-          <textarea
-            id="postContent"
-            name="postContent"
-            value={content}
-            onChange={onContentChange}
-          />
-          <button type="submit" disabled={!canSave}>
-            Save Post
-          </button>
-        </form>
-      </section>
+    <section className={styles.post}>
+      {error && <ErrorMsg errorText={error} closeError={closeErrorMsg} />}
+      <h2 className={styles.title}>Add a New Post</h2>
+      <form className={styles.form} onSubmit={onSavePost}>
+        <label htmlFor="postTitle">Post Title: </label>
+        <input
+          type="text"
+          id="postTitle"
+          name="postTitle"
+          value={title}
+          onChange={onTitleChange}
+        />
+        <label htmlFor="postAuthor">Author: </label>
+        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+          <option value="" key="0"></option>
+          {userOptions}
+        </select>
+        <label htmlFor="postContent">Post Content: </label>
+        <textarea
+          id="postContent"
+          name="postContent"
+          value={content}
+          onChange={onContentChange}
+        />
+        <button type="submit" disabled={!canSave}>
+          Save Post
+        </button>
+      </form>
     </section>
   );
 };

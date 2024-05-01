@@ -1,35 +1,72 @@
 @import '../../styles/variables';
 
 .post {
+  max-width: 700px;
+  margin: 0 auto;
   background-color: $color-secondary;
   padding: 25px;
   border-radius: 10px;
   // display: flex;
   margin-block: 50px;
+  box-shadow: 5px 5px 20px $color-black;
 }
 
 .title {
   font-size: 35px;
+  // text-align: center;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+
+  label {
+    font-weight: bold;
+    font-size: 20px;
+    align-self: start;
+  }
 
   input,
   select,
   button,
   textarea {
+    width: 100%;
     padding: 10px 5px;
     font-size: 20px;
     border-radius: 10px;
     border: 2px solid black;
     outline: none;
-    transition: box-shadow 0.25s;
+    transition: border-color 0.25s, box-shadow 0.25s;
 
     &:focus {
-      box-shadow: 0 0 1px 2px $color-primary;
+      box-shadow: 0 0 3px 2px $color-primary;
+      border-color: $color-primary;
+    }
+  }
+
+  button {
+    width: max-content;
+    color: $color-white;
+    background-color: $color-black;
+    opacity: 0.3;
+  }
+
+  button:not(:disabled) {
+    background-color: $color-primary;
+    opacity: 1;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: $color-black;
+      border-color: $color-primary;
+      box-shadow: 0 0 3px 2px $color-primary;
+    }
+
+    &:focus {
+      box-shadow: 0 0 15px 2px $color-primary;
     }
   }
   textarea {
