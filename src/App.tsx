@@ -8,33 +8,13 @@ import SinglePostPage from './Posts/SinglePostPage/SinglePostPage';
 import EditPostForm from './Posts/EditPostForm/EditPostForm';
 import AddPostForm from './Posts/AddPostForm/AddPostForm';
 
-import logo from './assets/icons/logo.svg';
+import Nav from './components/Nav/Nav';
 
 function App() {
   return (
     <>
       <MainContextProvider>
-        <nav className={styles.nav}>
-          <div className={styles.navContainer + ' container'}>
-            <NavLink
-              end
-              className={({ isActive }) =>
-                `${styles.logo} ${isActive ? styles.active : ''}`
-              }
-              to="/posts"
-            >
-              <img src={logo} height={60} alt="" />
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.active : ''}`
-              }
-              to="/newpost"
-            >
-              Add a new Post
-            </NavLink>
-          </div>
-        </nav>
+        <Nav />
         <main>
           <Routes>
             <Route index element={<Navigate to="/posts" />} />
