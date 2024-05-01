@@ -7,3 +7,9 @@ $color-error: #f44336;
 // $color-info: #03a9f4;
 $color-white: rgb(252, 251, 249);
 $color-black: #212121;
+
+%title {
+  font-size: 50px;
+  text-align: center;
+  text-decoration: underline $color-primary 7px;
+}

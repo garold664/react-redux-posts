@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import PostAuthor from './PostAuthor/PostAuthor';
-import TimeAgo from './TimeAgo';
-import { fetchPosts, selectPostById } from '../store/posts/postsSlice';
+import PostAuthor from '../PostAuthor/PostAuthor';
+import TimeAgo from '../TimeAgo';
+import { fetchPosts, selectPostById } from '../../store/posts/postsSlice';
 
-import type { RootState } from '../store/store';
+import type { RootState } from '../../store/store';
 import { useEffect } from 'react';
-import Spinner from '../components/Spinner/Spinner';
+import Spinner from '../../components/Spinner/Spinner';
+
+import styles from './SinglePostPage.module.scss';
 
 export const SinglePostPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,6 @@ export const SinglePostPage = () => {
   const post = useSelector((state: RootState) =>
     selectPostById(state, postId!)
   );
-  // console.log(postsStatus);
   if (postsStatus === 'loading' || postsStatus === 'idle') {
     return (
       <section
@@ -45,7 +46,7 @@ export const SinglePostPage = () => {
   return (
     <section>
       <article className="container">
-        <h2>{post.title}</h2>
+        <h2 className={styles.title}>{post.title}</h2>
         <p>{post.content}</p>
         <div>
           <PostAuthor userId={post.userId} />
