@@ -7,6 +7,9 @@ import { RootState } from '../../store/store';
 import ErrorMsg from '../../components/ErrorMsg/ErrorMsg';
 import { useMainContext } from '../../contexts/mainContext';
 
+import { storage } from '../../firebase';
+import { ref, uploadBytes } from 'firebase/storage';
+
 const AddPostForm = () => {
   const dispatch = useDispatch();
 
@@ -24,6 +27,14 @@ const AddPostForm = () => {
     setContent(event.target.value);
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
+
+  const uploadFile = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (imageUpload === null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+  };
 
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,8 +59,6 @@ const AddPostForm = () => {
       {user.name}
     </option>
   ));
-
-  const uploadFile = (event: React.MouseEvent<HTMLButtonElement>) => {};
 
   return (
     <section className={styles.post}>
