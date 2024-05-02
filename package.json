@@ -13,6 +13,7 @@
     "@types/react": "^18.2.67",
     "@types/react-dom": "^18.2.22",
     "date-fns": "^2.30.0",
+    "firebase": "^10.11.1",
     "lucide-react": "^0.367.0",
     "query-string": "^9.0.0",
     "react": "^18.2.0",
