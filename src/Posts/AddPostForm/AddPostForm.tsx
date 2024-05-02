@@ -16,6 +16,8 @@ const AddPostForm = () => {
   // const [error, setError] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
+
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
   const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -47,6 +49,8 @@ const AddPostForm = () => {
     </option>
   ));
 
+  const uploadFile = (event: React.MouseEvent<HTMLButtonElement>) => {};
+
   return (
     <section className={styles.post}>
       {error && <ErrorMsg errorText={error} closeError={closeErrorMsg} />}
@@ -72,6 +76,21 @@ const AddPostForm = () => {
           value={content}
           onChange={onContentChange}
         />
+        <label htmlFor="fileUpload">upload the file</label>
+        <input
+          type="file"
+          id="fileUpload"
+          name="fileUpload"
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            if (event.target.files && event.target.files.length > 0) {
+              setImageUpload(event.target.files[0]);
+            }
+          }}
+        />
+        <img src={imageUpload ? URL.createObjectURL(imageUpload) : ''} alt="" />
+        <button type="button" onClick={uploadFile}>
+          upload
+        </button>
         <button type="submit" disabled={!canSave}>
           Save Post
         </button>
