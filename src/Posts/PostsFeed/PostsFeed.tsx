@@ -112,7 +112,11 @@ const PostsFeed = () => {
     content = sortedPosts.map((post) => (
       <li key={post.id} className={styles.post}>
         <h2>{post.title}</h2>
-        <img className={styles.image} src={post.imageLink} alt="" />
+        {post.imageLink ? (
+          <img className={styles.image} src={post.imageLink} alt="" />
+        ) : (
+          ''
+        )}
         <p>{post.content}</p>
         <div>
           <PostAuthor userId={post.userId} />
