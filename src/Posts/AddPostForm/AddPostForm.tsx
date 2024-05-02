@@ -8,7 +8,9 @@ import ErrorMsg from '../../components/ErrorMsg/ErrorMsg';
 import { useMainContext } from '../../contexts/mainContext';
 
 import { storage } from '../../firebase';
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+
+import { nanoid } from 'nanoid';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
@@ -16,11 +18,11 @@ const AddPostForm = () => {
   const { error, setError, closeErrorMsg } = useMainContext();
   const users = useSelector((state: RootState) => state.users);
   const [title, setTitle] = useState('');
-  // const [error, setError] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
-
   const [imageUpload, setImageUpload] = useState<File | null>(null);
+  const [imageLink, setImageLink] = useState('');
+
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
   const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -28,11 +30,14 @@ const AddPostForm = () => {
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
 
-  const uploadFile = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const uploadFile = () => {
     if (imageUpload === null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name}`);
+    const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       console.log('Uploaded a blob or file!');
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageLink(url);
+      });
     });
   };
 
@@ -90,13 +95,19 @@ const AddPostForm = () => {
           type="file"
           id="fileUpload"
           name="fileUpload"
+          accept="image/*"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             if (event.target.files && event.target.files.length > 0) {
               setImageUpload(event.target.files[0]);
             }
           }}
         />
-        <img src={imageUpload ? URL.createObjectURL(imageUpload) : ''} alt="" />
+        {imageUpload ? (
+          <img src={URL.createObjectURL(imageUpload)} alt="" />
+        ) : (
+          ''
+        )}
+
         <button type="button" onClick={uploadFile}>
           upload
         </button>
@@ -104,6 +115,7 @@ const AddPostForm = () => {
           Save Post
         </button>
       </form>
+      {imageLink ? <img src={imageLink} alt="" /> : ''}
     </section>
   );
 };
