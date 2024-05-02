@@ -42,7 +42,12 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 
 export const updatePost = createAsyncThunk(
   'posts/updatePost',
-  async (initialPost: { id: string; title: string; content: string }) => {
+  async (initialPost: {
+    id: string;
+    title: string;
+    content: string;
+    imageLink?: string;
+  }) => {
     const post = {
       ...initialPost,
       date: new Date().toISOString(),

@@ -29,17 +29,6 @@ const AddPostForm = () => {
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
 
-  // const uploadFile = () => {
-  //   if (imageUpload === null) return;
-  //   const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
-  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
-  //     console.log('Uploaded a blob or file!');
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       setImageLink(url);
-  //     });
-  //   });
-  // };
-
   const uploadFile = async () => {
     if (imageUpload) {
       const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
@@ -127,9 +116,6 @@ const AddPostForm = () => {
           ''
         )}
 
-        {/* <button type="button" onClick={uploadFile}>
-          upload
-        </button> */}
         <button type="submit" disabled={!canSave}>
           Save Post
         </button>
