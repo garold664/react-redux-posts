@@ -21,7 +21,6 @@ const AddPostForm = () => {
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
   const [imageUpload, setImageUpload] = useState<File | null>(null);
-  const [imageLink, setImageLink] = useState('');
 
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
@@ -30,26 +29,42 @@ const AddPostForm = () => {
   const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setUserId(event.target.value);
 
-  const uploadFile = () => {
-    if (imageUpload === null) return;
-    const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  // const uploadFile = () => {
+  //   if (imageUpload === null) return;
+  //   const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
+  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
+  //     console.log('Uploaded a blob or file!');
+  //     getDownloadURL(snapshot.ref).then((url) => {
+  //       setImageLink(url);
+  //     });
+  //   });
+  // };
+
+  const uploadFile = async () => {
+    if (imageUpload) {
+      const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+
       console.log('Uploaded a blob or file!');
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageLink(url);
-      });
-    });
+      const url = await getDownloadURL(snapshot.ref);
+      return url;
+    }
   };
 
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    let imageLink;
     if (title && content) {
       try {
         setError('');
-        await dispatch(addNewPost({ title, content, userId }) as any).unwrap();
+        imageLink = await uploadFile();
+        await dispatch(
+          addNewPost({ title, content, userId, imageLink }) as any
+        ).unwrap();
         setContent('');
         setTitle('');
         setUserId('');
+        setImageUpload(null);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -103,19 +118,22 @@ const AddPostForm = () => {
           }}
         />
         {imageUpload ? (
-          <img src={URL.createObjectURL(imageUpload)} alt="" />
+          <img
+            className={styles.imagePreview}
+            src={URL.createObjectURL(imageUpload)}
+            alt=""
+          />
         ) : (
           ''
         )}
 
-        <button type="button" onClick={uploadFile}>
+        {/* <button type="button" onClick={uploadFile}>
           upload
-        </button>
+        </button> */}
         <button type="submit" disabled={!canSave}>
           Save Post
         </button>
       </form>
-      {imageLink ? <img src={imageLink} alt="" /> : ''}
     </section>
   );
 };

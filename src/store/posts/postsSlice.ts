@@ -17,6 +17,7 @@ export type Post = {
   content: string;
   userId: string;
   reactions: Reaction;
+  imageLink: string;
 };
 
 type InitialState = {
@@ -98,7 +99,12 @@ export const addReaction = createAsyncThunk(
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
-  async (initialPost: { title: string; content: string; userId: string }) => {
+  async (initialPost: {
+    title: string;
+    content: string;
+    userId: string;
+    imageLink: string | undefined;
+  }) => {
     const post = {
       ...initialPost,
       date: new Date().toISOString(),
