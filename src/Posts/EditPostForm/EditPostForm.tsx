@@ -15,7 +15,7 @@ import {
 import { RootState } from '../../store/store';
 
 import styles from './EditPostForm.module.scss';
-import { storage } from '../../firebase';
+import { storage } from '../../firebase.ts';
 import { nanoid } from 'nanoid';
 const EditPostForm = () => {
   const { postId } = useParams();
