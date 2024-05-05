@@ -48,6 +48,11 @@ const SinglePostPage = () => {
     <section className={styles.post}>
       <article className={styles.postContainer + ' container'}>
         <h2 className={styles.title}>{post.title}</h2>
+        {post.imageLink ? (
+          <img className={styles.image} src={post.imageLink} alt="" />
+        ) : (
+          ''
+        )}
         <p>{post.content}</p>
         <div className={styles.info}>
           <img src={avatar} />
