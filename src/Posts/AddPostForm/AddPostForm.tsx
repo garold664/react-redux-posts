@@ -35,7 +35,6 @@ const AddPostForm = () => {
       const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
       const snapshot = await uploadBytes(imageRef, imageUpload);
 
-      console.log('Uploaded a blob or file!');
       const url = await getDownloadURL(snapshot.ref);
       return url;
     }

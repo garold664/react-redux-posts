@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
-import { Post, selectPostById, updatePost } from '../../store/posts/postsSlice';
+import React, { useEffect, useState } from 'react';
+import {
+  Post,
+  addNewPost,
+  selectPostById,
+  updatePost,
+} from '../../store/posts/postsSlice.ts';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 import {
-  getStorage,
   ref,
   deleteObject,
   uploadBytes,
   getDownloadURL,
 } from 'firebase/storage';
 
-import { RootState } from '../../store/store';
+import { RootState } from '../../store/store.ts';
 
-import styles from './EditPostForm.module.scss';
+import styles from './PostForm.module.scss';
 import { storage } from '../../firebase.ts';
 import { nanoid } from 'nanoid';
-const EditPostForm = () => {
+const PostForm = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const users = useSelector((state: RootState) => state.users);
+  console.log(pathname);
 
   let post:
     | Post
@@ -40,19 +48,39 @@ const EditPostForm = () => {
   const [title, setTitle] = useState(post!.title);
   const [content, setContent] = useState(post!.content);
   const [imageLink, setImageLink] = useState(post!.imageLink || '');
+  const [userId, setUserId] = useState('');
   const [imageUpload, setImageUpload] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (pathname === '/newpost') {
+      setTitle('');
+      setContent('');
+      setUserId('');
+      setImageUpload(null);
+      setImageLink('');
+    }
+  }, [pathname]);
+
+  const userOptions = users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ));
 
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(event.target.value);
   const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) =>
     setContent(event.target.value);
 
+  const onAuthorChanged = (event: React.ChangeEvent<HTMLSelectElement>) =>
+    setUserId(event.target.value);
+
   const uploadFile = async () => {
     if (imageUpload) {
       const imageRef = ref(storage, `images/${imageUpload.name}_${nanoid()}`);
       const snapshot = await uploadBytes(imageRef, imageUpload);
 
-      console.log('Uploaded a blob or file!');
+      // console.log('Uploaded a blob or file!');
       const url = await getDownloadURL(snapshot.ref);
       return url;
     }
@@ -78,14 +106,20 @@ const EditPostForm = () => {
       let newImageLink;
       if (imageUpload) {
         newImageLink = await uploadFile();
-        dispatch(
-          updatePost({
-            id: postId,
-            title,
-            content,
-            imageLink: newImageLink,
-          }) as any
-        );
+        if (postId) {
+          dispatch(
+            updatePost({
+              id: postId,
+              title,
+              content,
+              imageLink: newImageLink,
+            }) as any
+          );
+        } else {
+          await dispatch(
+            addNewPost({ title, content, userId, imageLink }) as any
+          ).unwrap();
+        }
       } else {
         dispatch(updatePost({ id: postId, title, content, imageLink }) as any);
       }
@@ -94,7 +128,9 @@ const EditPostForm = () => {
   };
   let element = (
     <article className={styles.post}>
-      <h2 className={styles.title}>Edit Post</h2>
+      <h2 className={styles.title}>
+        {pathname === '/newpost' ? 'New Post' : 'Edit Post'}
+      </h2>
       <form className={styles.form} onSubmit={onSavePost}>
         <label htmlFor="postTitle">Post Title: </label>
         <input
@@ -104,6 +140,15 @@ const EditPostForm = () => {
           value={title}
           onChange={onTitleChange}
         />
+        {pathname === '/newpost' && (
+          <>
+            <label htmlFor="postAuthor">Author: </label>
+            <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+              <option value="" key="0"></option>
+              {userOptions}
+            </select>
+          </>
+        )}
         <label htmlFor="postContent">Post Content: </label>
         <textarea
           id="postContent"
@@ -144,7 +189,7 @@ const EditPostForm = () => {
     </article>
   );
 
-  if (!post!.id) {
+  if (!post!.id && pathname !== '/newpost') {
     element = (
       <article className={styles.post}>
         <h2>Post not found!</h2>
@@ -155,4 +200,4 @@ const EditPostForm = () => {
   return <section className="container">{element}</section>;
 };
 
-export default EditPostForm;
+export default PostForm;
