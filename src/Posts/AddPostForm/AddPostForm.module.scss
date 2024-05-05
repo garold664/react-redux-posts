@@ -27,12 +27,6 @@
   align-items: center;
   gap: 20px;
 
-  label {
-    font-weight: bold;
-    font-size: 20px;
-    align-self: start;
-  }
-
   input,
   select,
   button,
@@ -86,8 +80,56 @@
   max-width: 100%;
 }
 
-// .form input,
-// .form select {
-//   padding: 10px 5px;
-//   font-size: 20px;
-// }
+.fileUpload {
+  position: relative;
+  align-self: stretch;
+  height: 200px;
+  // background-image: linear-gradient(
+  //   -45deg,
+  //   $color-primary,
+  //   darken($color-primary, 30%)
+  // );
+
+  color: $color-white;
+
+  background: radial-gradient(
+    circle at 100%,
+    $color-primary,
+    $color-primary 30%,
+    darken($color-primary, 30%) 75%,
+    // $color-primary 75%
+  );
+  transition: background-size 0.3s linear, color 0.3s linear;
+
+  border-radius: 15px;
+  background-size: 100%;
+
+  &:hover {
+    background-size: 350%;
+    color: $color-secondary;
+  }
+  input[type='file'] {
+    opacity: 0;
+    padding: 0;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    font-size: 30px;
+  }
+
+  .uploadIcon {
+    width: 50px;
+    height: 50px;
+  }
+}

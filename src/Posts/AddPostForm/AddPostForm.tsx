@@ -11,6 +11,7 @@ import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import { nanoid } from 'nanoid';
+import { Upload } from 'lucide-react';
 
 const AddPostForm = () => {
   const dispatch = useDispatch();
@@ -94,18 +95,24 @@ const AddPostForm = () => {
           value={content}
           onChange={onContentChange}
         />
-        <label htmlFor="fileUpload">upload the file</label>
-        <input
-          type="file"
-          id="fileUpload"
-          name="fileUpload"
-          accept="image/*"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            if (event.target.files && event.target.files.length > 0) {
-              setImageUpload(event.target.files[0]);
-            }
-          }}
-        />
+        <label className={styles.fileUpload} htmlFor="fileUpload">
+          <span>
+            {' '}
+            <Upload className={styles.uploadIcon} /> upload the file
+          </span>
+          <input
+            type="file"
+            id="fileUpload"
+            name="fileUpload"
+            accept="image/*"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              if (event.target.files && event.target.files.length > 0) {
+                setImageUpload(event.target.files[0]);
+              }
+            }}
+          />
+        </label>
+
         {imageUpload ? (
           <img
             className={styles.imagePreview}
