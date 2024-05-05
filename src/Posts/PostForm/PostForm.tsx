@@ -21,6 +21,7 @@ import { RootState } from '../../store/store.ts';
 import styles from './PostForm.module.scss';
 import { storage } from '../../firebase.ts';
 import { nanoid } from 'nanoid';
+import { Upload } from 'lucide-react';
 const PostForm = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
@@ -159,17 +160,25 @@ const PostForm = () => {
         {imageLink ? (
           <img className={styles.imagePreview} src={imageLink} alt="" />
         ) : (
-          <input
-            type="file"
-            id="fileUpload"
-            name="fileUpload"
-            accept="image/*"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              if (event.target.files && event.target.files.length > 0) {
-                setImageUpload(event.target.files[0]);
-              }
-            }}
-          />
+          <>
+            <label className={styles.fileUpload} htmlFor="fileUpload">
+              <span>
+                {' '}
+                <Upload className={styles.uploadIcon} /> upload the file
+              </span>
+              <input
+                type="file"
+                id="fileUpload"
+                name="fileUpload"
+                accept="image/*"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  if (event.target.files && event.target.files.length > 0) {
+                    setImageUpload(event.target.files[0]);
+                  }
+                }}
+              />
+            </label>
+          </>
         )}
         {imageUpload ? (
           <img
