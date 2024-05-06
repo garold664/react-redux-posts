@@ -101,6 +101,7 @@ const PostForm = () => {
         console.error(error.message);
       });
   };
+
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title && content && postId) {
@@ -127,6 +128,8 @@ const PostForm = () => {
       navigate(`/posts/${postId}`);
     }
   };
+
+  // let imagePreviewElement =
   let element = (
     <article className={styles.post}>
       <h2 className={styles.title}>
@@ -157,9 +160,23 @@ const PostForm = () => {
           value={content}
           onChange={onContentChange}
         />
-        {imageLink ? (
-          <img className={styles.imagePreview} src={imageLink} alt="" />
+        {imageLink && (
+          <div className={styles.imagePreviewContainer}>
+            <img className={styles.imagePreview} src={imageLink} alt="" />
+          </div>
+        )}
+
+        {imageUpload ? (
+          <img
+            className={styles.imagePreview}
+            src={URL.createObjectURL(imageUpload)}
+            alt=""
+          />
         ) : (
+          ''
+        )}
+
+        {!imageLink && !imageUpload && (
           <>
             <label className={styles.fileUpload} htmlFor="fileUpload">
               <span>
@@ -180,19 +197,12 @@ const PostForm = () => {
             </label>
           </>
         )}
-        {imageUpload ? (
-          <img
-            className={styles.imagePreview}
-            src={URL.createObjectURL(imageUpload)}
-            alt=""
-          />
-        ) : (
-          ''
+        {/* {(imageLink || imageUpload) && console.log(imageLink, imageUpload)} */}
+        {(imageLink || imageUpload) && (
+          <button type="button" onClick={deleteImage}>
+            delete an image
+          </button>
         )}
-        ;
-        <button type="button" onClick={deleteImage}>
-          delete an image
-        </button>
         <button type="submit">Save Post</button>
       </form>
     </article>

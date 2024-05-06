@@ -100,3 +100,9 @@
     height: 50px;
   }
 }
+
+.imagePreviewContainer {
+  img {
+    max-width: 100%;
+  }
+}
