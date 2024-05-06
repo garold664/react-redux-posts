@@ -50,6 +50,7 @@ const PostForm = () => {
   const [imageLink, setImageLink] = useState(post!.imageLink || '');
   const [userId, setUserId] = useState('');
   const [imageUpload, setImageUpload] = useState<File | null>(null);
+  const [isImageDeleted, setIsImageDeleted] = useState(false);
 
   useEffect(() => {
     if (pathname === '/newpost') {
@@ -84,6 +85,10 @@ const PostForm = () => {
       const url = await getDownloadURL(snapshot.ref);
       return url;
     }
+  };
+  const prepareImageForDeletion = () => {
+    setIsImageDeleted(true);
+    setImageLink('');
   };
 
   const deleteImage = () => {
@@ -122,6 +127,11 @@ const PostForm = () => {
             addNewPost({ title, content, userId, imageLink }) as any
           ).unwrap();
         }
+      } else if (isImageDeleted) {
+        deleteImage();
+        dispatch(
+          updatePost({ id: postId, title, content, imageLink: '' }) as any
+        );
       } else {
         dispatch(updatePost({ id: postId, title, content, imageLink }) as any);
       }
@@ -165,7 +175,7 @@ const PostForm = () => {
             <button
               className={styles.deleteButton}
               type="button"
-              onClick={deleteImage}
+              onClick={prepareImageForDeletion}
             >
               <Trash2 />
             </button>
