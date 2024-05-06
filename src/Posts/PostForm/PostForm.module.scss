@@ -102,7 +102,31 @@
 }
 
 .imagePreviewContainer {
+  position: relative;
   img {
     max-width: 100%;
+  }
+  .deleteButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 0;
+
+    border-radius: 20px;
+
+    border: none;
+    background: $color-white;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px $color-primary;
+    transition: 0.3s color ease-in-out;
+    opacity: 0.6;
+    svg {
+      width: 50px;
+      height: 50px;
+    }
+
+    &:hover {
+      color: red;
+    }
   }
 }

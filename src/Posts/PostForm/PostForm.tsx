@@ -21,7 +21,7 @@ import { RootState } from '../../store/store.ts';
 import styles from './PostForm.module.scss';
 import { storage } from '../../firebase.ts';
 import { nanoid } from 'nanoid';
-import { Upload } from 'lucide-react';
+import { Trash2, Upload } from 'lucide-react';
 const PostForm = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
@@ -29,7 +29,6 @@ const PostForm = () => {
   const { pathname } = useLocation();
 
   const users = useSelector((state: RootState) => state.users);
-  console.log(pathname);
 
   let post:
     | Post
@@ -88,18 +87,19 @@ const PostForm = () => {
   };
 
   const deleteImage = () => {
-    if (!imageLink) return;
-
     const desertRef = ref(storage, imageLink);
-
-    deleteObject(desertRef)
-      .then(() => {
-        setImageLink('');
-        console.log('successfully deleted the image');
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
+    if (imageLink) {
+      deleteObject(desertRef)
+        .then(() => {
+          setImageLink('');
+          console.log('successfully deleted the image');
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
+    } else if (imageUpload) {
+      setImageUpload(null);
+    }
   };
 
   const onSavePost = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -129,7 +129,6 @@ const PostForm = () => {
     }
   };
 
-  // let imagePreviewElement =
   let element = (
     <article className={styles.post}>
       <h2 className={styles.title}>
@@ -163,15 +162,32 @@ const PostForm = () => {
         {imageLink && (
           <div className={styles.imagePreviewContainer}>
             <img className={styles.imagePreview} src={imageLink} alt="" />
+            <button
+              className={styles.deleteButton}
+              type="button"
+              onClick={deleteImage}
+            >
+              <Trash2 />
+            </button>
           </div>
         )}
 
         {imageUpload ? (
-          <img
-            className={styles.imagePreview}
-            src={URL.createObjectURL(imageUpload)}
-            alt=""
-          />
+          <div className={styles.imagePreviewContainer}>
+            <img
+              className={styles.imagePreview}
+              src={URL.createObjectURL(imageUpload)}
+              alt=""
+            />
+
+            <button
+              className={styles.deleteButton}
+              type="button"
+              onClick={deleteImage}
+            >
+              <Trash2 />
+            </button>
+          </div>
         ) : (
           ''
         )}
@@ -196,12 +212,6 @@ const PostForm = () => {
               />
             </label>
           </>
-        )}
-        {/* {(imageLink || imageUpload) && console.log(imageLink, imageUpload)} */}
-        {(imageLink || imageUpload) && (
-          <button type="button" onClick={deleteImage}>
-            delete an image
-          </button>
         )}
         <button type="submit">Save Post</button>
       </form>
