@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import PostAuthor from '../PostAuthor/PostAuthor';
-import TimeAgo from '../TimeAgo';
-import ReactionButtons from '../ReactionButtons/ReactionButtons';
+import { useLocation } from 'react-router-dom';
 
 import { selectAllPosts, fetchPosts, Post } from '../../store/posts/postsSlice';
 
@@ -13,6 +10,7 @@ import { RootState } from '../../store/store';
 import queryString from 'query-string';
 import Sorting, { SortingProps } from '../../components/Sorting/Sorting';
 import { User } from '../../store/posts/userSlice';
+import SinglePost from '../SinglePost/SinglePost';
 
 type ModifiedPost = Post & { author: string; reactionsNumber: number };
 
@@ -96,10 +94,10 @@ const PostsFeed = () => {
     return;
   }
 
-  let content;
+  let postsList;
 
   if (postsStatus === 'loading') {
-    content = (
+    postsList = (
       <li>
         <Spinner />
       </li>
@@ -109,39 +107,18 @@ const PostsFeed = () => {
     sortedPosts &&
     sortedPosts?.length > 0
   ) {
-    content = sortedPosts.map((post) => (
-      <li key={post.id} className={styles.post}>
-        <h2>{post.title}</h2>
-        {post.imageLink ? (
-          <img className={styles.image} src={post.imageLink} alt="" />
-        ) : (
-          ''
-        )}
-        <p>{post.content}</p>
-        <div>
-          <PostAuthor userId={post.userId} />
-          <TimeAgo timestamp={post.date} />
-        </div>
-        <ReactionButtons post={post} />
-        <Link className={styles.link} to={`/posts/${post.id}`}>
-          read the post
-        </Link>
-      </li>
+    postsList = sortedPosts.map((post) => (
+      <SinglePost post={post} key={post.id} />
     ));
   } else if (postsStatus === 'failed') {
-    content = <li>{error}</li>;
+    postsList = <li>{error}</li>;
   }
 
-  const renderedPosts = (
-    <>
-      <Sorting />
-      <ul className={styles.posts}>{content}</ul>
-    </>
-  );
   return (
     <section className="container">
       <h1 className={styles.title}>All Posts</h1>
-      {renderedPosts}
+      <Sorting />
+      <ul className={styles.posts}>{postsList}</ul>
     </section>
   );
 };
