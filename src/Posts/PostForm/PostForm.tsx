@@ -32,7 +32,13 @@ const PostForm = () => {
 
   let post:
     | Post
-    | { title: string; content: string; id: string; imageLink?: string }
+    | {
+        title: string;
+        content: string;
+        id: string;
+        userId: string;
+        imageLink?: string;
+      }
     | undefined = useSelector((state: RootState) =>
     selectPostById(state, postId!)
   );
@@ -41,6 +47,7 @@ const PostForm = () => {
     post = {
       title: '',
       content: '',
+      userId: '',
       id: '',
     };
   }
@@ -59,6 +66,8 @@ const PostForm = () => {
       setUserId('');
       setImageUpload(null);
       setImageLink('');
+    } else {
+      setUserId(post.userId);
     }
   }, [pathname]);
 
@@ -117,6 +126,7 @@ const PostForm = () => {
           dispatch(
             updatePost({
               id: postId,
+              userId,
               title,
               content,
               imageLink: newImageLink,
@@ -130,10 +140,18 @@ const PostForm = () => {
       } else if (isImageDeleted) {
         deleteImage();
         dispatch(
-          updatePost({ id: postId, title, content, imageLink: '' }) as any
+          updatePost({
+            id: postId,
+            title,
+            content,
+            userId,
+            imageLink: '',
+          }) as any
         );
       } else {
-        dispatch(updatePost({ id: postId, title, content, imageLink }) as any);
+        dispatch(
+          updatePost({ id: postId, title, content, userId, imageLink }) as any
+        );
       }
       navigate(`/posts/${postId}`);
     }

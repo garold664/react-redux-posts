@@ -46,6 +46,7 @@ export const updatePost = createAsyncThunk(
     id: string;
     title: string;
     content: string;
+    userId: string;
     imageLink?: string;
   }) => {
     const post = {
