@@ -3,10 +3,10 @@
 .buttons {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   padding: 15px 0;
   margin-top: 10px;
   gap: 15px;
-  border-top: 1px solid lightgray;
 }
 
 .button {

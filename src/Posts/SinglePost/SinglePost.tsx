@@ -21,10 +21,12 @@ const SinglePost = ({ post }: { post: Post }) => {
         <PostAuthor userId={post.userId} />
         <TimeAgo timestamp={post.date} />
       </div>
-      <ReactionButtons post={post} />
-      <Link className={styles.link} to={`/posts/${post.id}`}>
-        read the post
-      </Link>
+      <div className={styles.footer}>
+        <ReactionButtons post={post} />
+        <Link className={styles.readLink} to={`/posts/${post.id}`}>
+          read the post
+        </Link>
+      </div>
     </li>
   );
 };
