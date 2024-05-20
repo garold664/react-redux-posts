@@ -6,6 +6,10 @@
   gap: 20px;
 }
 
+.sorting {
+  flex-wrap: wrap;
+}
+
 .link {
   text-decoration: none;
   background-color: $color-secondary;

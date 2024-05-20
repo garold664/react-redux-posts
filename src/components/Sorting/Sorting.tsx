@@ -34,7 +34,7 @@ function SortingLink({ sortingKey }: SortingProps) {
 
 export default function Sorting() {
   return (
-    <section className={styles.container}>
+    <section className={`${styles.container} ${styles.sorting}`}>
       <SortingLink sortingKey="title" />
       <SortingLink sortingKey="content" />
       <SortingLink sortingKey="author" />
