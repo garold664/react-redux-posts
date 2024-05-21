@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/react-redux-posts/static/css/main.08f7549b.css",
-    "main.js": "/react-redux-posts/static/js/main.9911f9cd.js",
+    "main.css": "/react-redux-posts/static/css/main.5d3a8a81.css",
+    "main.js": "/react-redux-posts/static/js/main.5ecad61f.js",
     "static/js/787.78c4b46e.chunk.js": "/react-redux-posts/static/js/787.78c4b46e.chunk.js",
     "static/media/logo.svg": "/react-redux-posts/static/media/logo.bcafa8810908d5eb527d827a69d30233.svg",
     "static/media/default-avatar.webp": "/react-redux-posts/static/media/default-avatar.013b6296dcd440fe8352.webp",
     "index.html": "/react-redux-posts/index.html",
-    "main.08f7549b.css.map": "/react-redux-posts/static/css/main.08f7549b.css.map",
-    "main.9911f9cd.js.map": "/react-redux-posts/static/js/main.9911f9cd.js.map",
+    "main.5d3a8a81.css.map": "/react-redux-posts/static/css/main.5d3a8a81.css.map",
+    "main.5ecad61f.js.map": "/react-redux-posts/static/js/main.5ecad61f.js.map",
     "787.78c4b46e.chunk.js.map": "/react-redux-posts/static/js/787.78c4b46e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.08f7549b.css",
-    "static/js/main.9911f9cd.js"
+    "static/css/main.5d3a8a81.css",
+    "static/js/main.5ecad61f.js"
   ]
 }
