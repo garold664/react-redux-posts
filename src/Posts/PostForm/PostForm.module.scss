@@ -79,6 +79,7 @@
     opacity: 0;
     padding: 0;
     height: 100%;
+    max-width: 100%;
     cursor: pointer;
   }
 
@@ -120,6 +121,9 @@
     box-shadow: 1px 1px 5px $color-primary;
     transition: 0.3s color ease-in-out;
     opacity: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     svg {
       width: 50px;
       height: 50px;
@@ -127,6 +131,14 @@
 
     &:hover {
       color: red;
+    }
+
+    @media (max-width: $tablet-width) {
+      padding: 5px;
+      svg {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 }
