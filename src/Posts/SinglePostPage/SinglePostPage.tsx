@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import PostAuthor from '../PostAuthor/PostAuthor';
-import TimeAgo from '../TimeAgo';
+import TimeAgo from '../../components/TimeAgo/TimeAgo';
 import { fetchPosts, selectPostById } from '../../store/posts/postsSlice';
 
 import type { RootState } from '../../store/store';

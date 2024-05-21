@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import PostAuthor from '../PostAuthor/PostAuthor';
-import TimeAgo from '../TimeAgo';
+import TimeAgo from '../../components/TimeAgo/TimeAgo';
 import ReactionButtons from '../ReactionButtons/ReactionButtons';
 
 import type { Post } from '../../store/posts/postsSlice';

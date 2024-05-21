@@ -1,4 +1,6 @@
 import { parseISO, formatDistanceToNow } from 'date-fns';
+
+import styles from './TimeAgo.module.scss';
 const TimeAgo = ({ timestamp }: { timestamp?: string }) => {
   let timeAgo = '';
   if (timestamp) {
@@ -7,7 +9,7 @@ const TimeAgo = ({ timestamp }: { timestamp?: string }) => {
     timeAgo = `${timePeriod} ago`;
   }
   return (
-    <span title={timestamp}>
+    <span className={styles.timeAgo} title={timestamp}>
       &nbsp;<i>{timeAgo}</i>
     </span>
   );
