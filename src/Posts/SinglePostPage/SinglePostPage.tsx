@@ -48,12 +48,6 @@ const SinglePostPage = () => {
     <section className={styles.post}>
       <article className={styles.postContainer + ' container'}>
         <h2 className={styles.title}>{post.title}</h2>
-        {post.imageLink ? (
-          <img className={styles.image} src={post.imageLink} alt="" />
-        ) : (
-          ''
-        )}
-        <p>{post.content}</p>
         <div className={styles.info}>
           <img src={avatar} />
           <div className={styles.infoGroup}>
@@ -61,6 +55,13 @@ const SinglePostPage = () => {
             <TimeAgo timestamp={post.date} />
           </div>
         </div>
+        {post.imageLink ? (
+          <img className={styles.image} src={post.imageLink} alt="" />
+        ) : (
+          ''
+        )}
+        <p>{post.content}</p>
+
         <Link to={`/editPost/${post.id}`} className={styles.button}>
           Edit post
         </Link>

@@ -12,8 +12,13 @@
   position: relative;
   background-color: $color-white;
   padding: 15px;
+  padding-top: 100px;
   border-radius: 15px;
   box-shadow: 0 0 10px $color-black;
+
+  @media (max-width: $tablet-width) {
+    padding-top: 10px;
+  }
 }
 
 .title {
@@ -31,15 +36,38 @@
   display: flex;
   align-items: center;
   font-style: italic;
+  flex-wrap: wrap;
 
   img {
     width: 80px;
+  }
+
+  @media (max-width: $tablet-width) {
+    position: static;
+
+    justify-content: center;
+    // text-align: center;
+    .infoGroup {
+      flex-grow: 1;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .author {
+      margin: 0;
+    }
   }
 }
 
 .infoGroup {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+
+  & > * {
+    flex-grow: 1;
+    text-align: center;
+  }
 }
 
 .author {
