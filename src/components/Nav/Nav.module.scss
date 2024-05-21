@@ -14,12 +14,20 @@
   box-shadow: 0 3px 2px $color-black;
   border-radius: 0 0 10px 10px;
   backdrop-filter: blur(10px);
+
+  @media (max-width: $tablet-width) {
+    padding: 8px;
+  }
 }
 
 .navContainer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  @media (max-width: $tablet-width) {
+    justify-content: space-between;
+  }
 }
 
 .logo {
@@ -38,6 +46,12 @@
 
   img {
     height: 60px;
+  }
+
+  @media (max-width: $tablet-width) {
+    img {
+      height: 30px;
+    }
   }
 }
 

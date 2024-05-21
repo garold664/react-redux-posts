@@ -10,7 +10,7 @@ import styles from './SinglePost.module.scss';
 const SinglePost = ({ post }: { post: Post }) => {
   return (
     <li key={post.id} className={styles.post}>
-      <h2>{post.title}</h2>
+      <h2 className={styles.title}>{post.title}</h2>
       {post.imageLink ? (
         <img className={styles.image} src={post.imageLink} alt="" />
       ) : (

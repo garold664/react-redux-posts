@@ -7,6 +7,22 @@
   padding: 15px;
   position: relative;
   list-style: none;
+
+  @media (max-width: $tablet-width) {
+    width: auto;
+    margin: 0 12px;
+  }
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 1em;
+  margin-bottom: 0.6em;
+
+  @media (max-width: $tablet-width) {
+    font-size: 20px;
+  }
 }
 
 .footer {

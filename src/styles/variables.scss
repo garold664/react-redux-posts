@@ -9,24 +9,31 @@ $color-error: #f44336;
 $color-white: rgb(252, 251, 249);
 $color-black: #212121;
 
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
 %title {
   font-size: 50px;
   text-align: center;
   text-decoration: underline $color-primary 7px;
   margin: 0;
   padding: 20px 0 45px;
+
+  @media (max-width: $tablet-width) {
+    font-size: 30px;
+  }
 }
 
 %link {
   background-color: $color-primary;
-  padding: 5px;
+  padding: 0.5em;
   border-radius: 5px;
   color: #000000;
   text-decoration: none;
   transition: 0.6s;
   font-size: 17px;
   font-family: 'Montserrat', sans-serif;
-  margin-right: 20px;
+  // margin-right: 20px;
 
   &:hover {
     color: $color-primary;
@@ -39,5 +46,9 @@ $color-black: #212121;
     background-color: #000000;
     box-shadow: 0 10px 10px -5px darkgray;
     cursor: default;
+  }
+
+  @media (max-width: $tablet-width) {
+    font-size: 12px;
   }
 }
