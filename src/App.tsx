@@ -11,6 +11,7 @@ import AddPostForm from './Posts/AddPostForm/AddPostForm';
 import Nav from './components/Nav/Nav';
 
 function App() {
+  console.log('hello');
   return (
     <>
       <MainContextProvider>

@@ -13,7 +13,7 @@ Store.dispatch(fetchUsers());
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={Store}>
-    <BrowserRouter basename="/react-redux-posts">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>
