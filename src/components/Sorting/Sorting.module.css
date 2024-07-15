@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sorting {
+  flex-wrap: wrap;
+}
+
+.link {
+  text-decoration: none;
+  background-color: #f6f2cb;
+  padding: 3px 8px;
+  border-radius: 11px;
+  display: inline-flex;
+  border: 3px solid #f6f2cb;
+  gap: 7px;
+  align-items: center;
+  transition: border 0.3s ease;
+  cursor: pointer;
+}
+.link:hover {
+  border-color: #2ee3d4;
+}
+.link:active {
+  border-color: transparent;
+  box-shadow: 0 0 5px 2px #2ee3d4;
+}

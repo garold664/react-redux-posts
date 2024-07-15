@@ -1,6 +1,6 @@
 {
   "homepage": "https://garold664.github.io/react-redux-posts",
-  "name": "redux-revising-2023",
+  "name": "posts-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

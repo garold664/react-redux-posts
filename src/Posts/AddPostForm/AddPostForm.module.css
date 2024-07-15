@@ -1,0 +1,106 @@
+.post {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  background-image: linear-gradient(45deg, #f6f2cb, #b5f5f0);
+  padding: 25px;
+  border-radius: 10px;
+  margin-block: 50px;
+  box-shadow: 5px 5px 20px #212121;
+}
+
+.title {
+  font-size: 35px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.form input,
+.form select,
+.form button,
+.form textarea {
+  width: 100%;
+  padding: 10px 5px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 2px solid black;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.form input:focus,
+.form select:focus,
+.form button:focus,
+.form textarea:focus {
+  box-shadow: 0 0 3px 2px #2ee3d4;
+  border-color: #2ee3d4;
+}
+.form button {
+  width: -moz-max-content;
+  width: max-content;
+  color: rgb(252, 251, 249);
+  background-color: #212121;
+  opacity: 0.3;
+}
+.form button:not(:disabled) {
+  background-color: #2ee3d4;
+  opacity: 1;
+  cursor: pointer;
+}
+.form button:not(:disabled):hover, .form button:not(:disabled):focus {
+  background-color: #212121;
+  border-color: #2ee3d4;
+  box-shadow: 0 0 3px 2px #2ee3d4;
+}
+.form button:not(:disabled):focus {
+  box-shadow: 0 0 15px 2px #2ee3d4;
+}
+.form textarea {
+  resize: vertical;
+  height: 30vh;
+  min-height: 10vh;
+  max-height: 60vh;
+}
+
+.imagePreview {
+  max-width: 100%;
+}
+
+.fileUpload {
+  position: relative;
+  align-self: stretch;
+  height: 200px;
+  color: rgb(252, 251, 249);
+  background: radial-gradient(circle at 100%, #2ee3d4, #2ee3d4 30%, #0e6a62 75%);
+  transition: background-size 0.3s linear, color 0.3s linear;
+  border-radius: 15px;
+  background-size: 100%;
+}
+.fileUpload:hover {
+  background-size: 350%;
+  color: #f6f2cb;
+}
+.fileUpload input[type=file] {
+  opacity: 0;
+  padding: 0;
+  height: 100%;
+  cursor: pointer;
+}
+.fileUpload span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 30px;
+}
+.fileUpload .uploadIcon {
+  width: 50px;
+  height: 50px;
+}

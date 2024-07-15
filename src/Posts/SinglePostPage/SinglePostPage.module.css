@@ -1,0 +1,126 @@
+.title {
+  position: relative;
+  font-size: 50px;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  margin: auto;
+  padding: 20px 0 8px;
+  margin-bottom: 45px;
+}
+.title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 7px;
+  border-radius: 7px;
+  background-color: #2ee3d4;
+  background-image: linear-gradient(120deg, #2ee3d4, #0b534d 75%, #2ee3d4);
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 30px;
+  }
+}
+
+.button {
+  background-color: #2ee3d4;
+  padding: 0.5em;
+  border-radius: 5px;
+  color: #000000;
+  text-decoration: none;
+  transition: 0.6s;
+  font-size: 17px;
+  font-family: "Montserrat", sans-serif;
+}
+.button:hover {
+  color: #2ee3d4;
+  background-color: #000000;
+}
+.active.button, .button:active {
+  color: rgb(252, 251, 249);
+  background-color: #000000;
+  box-shadow: 0 10px 10px -5px darkgray;
+  cursor: default;
+}
+@media (max-width: 768px) {
+  .button {
+    font-size: 12px;
+  }
+}
+
+.post {
+  background-color: #f6f2cb;
+  min-height: 100%;
+  padding-top: 30px;
+  flex-grow: 1;
+}
+
+.postContainer {
+  position: relative;
+  background-color: rgb(252, 251, 249);
+  padding: 15px;
+  padding-top: 100px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #212121;
+}
+@media (max-width: 768px) {
+  .postContainer {
+    padding-top: 10px;
+  }
+}
+
+.image {
+  width: 100%;
+}
+
+.info {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  flex-wrap: wrap;
+}
+.info img {
+  width: 80px;
+}
+@media (max-width: 768px) {
+  .info {
+    position: static;
+    justify-content: center;
+  }
+  .info .infoGroup {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+  }
+  .info .author {
+    margin: 0;
+  }
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.infoGroup > * {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.author {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-style: normal;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 50px;
+}

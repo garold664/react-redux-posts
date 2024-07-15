@@ -1,0 +1,55 @@
+.post {
+  width: 70%;
+  border: 2px solid #000;
+  border-radius: 7px;
+  padding: 15px;
+  position: relative;
+  list-style: none;
+}
+@media (max-width: 768px) {
+  .post {
+    width: auto;
+    margin: 0 12px;
+  }
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 1em;
+  margin-bottom: 0.6em;
+}
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+  }
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid lightgray;
+}
+
+.readLink {
+  text-align: right;
+  flex-grow: 1;
+  padding: 3px;
+  border-radius: 3px;
+  text-decoration-color: transparent;
+  transition: 0.3s;
+  font-size: 20px;
+  color: #2ee3d4;
+}
+.readLink:visited {
+  color: #14978c;
+}
+.readLink:hover {
+  text-decoration-color: #2ee3d4;
+}
+
+.image {
+  max-width: 100%;
+}

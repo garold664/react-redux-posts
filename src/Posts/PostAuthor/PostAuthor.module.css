@@ -1,0 +1,13 @@
+.link {
+  display: inline-block;
+  text-decoration: none;
+  color: #2ee3d4;
+  font-style: italic;
+  transition: 0.2s;
+  padding: 5px;
+  border-radius: 6px;
+}
+.link:hover {
+  text-shadow: 0.5px 0.5px 1px #f6f2cb;
+  box-shadow: 0 1px 2px #f6f2cb;
+}
